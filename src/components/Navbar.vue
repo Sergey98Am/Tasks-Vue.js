@@ -11,6 +11,9 @@
         <li class="nav-item active">
           <router-link class="nav-link" to="/">Home</router-link>
         </li>
+        <li v-if="loggedIn" class="nav-item">
+          <router-link class="nav-link" to="/boards">Boards</router-link>
+        </li>
       </ul>
       <ul v-if="!loggedIn" class="nav navbar-nav navbar-right">
         <li class="nav-item">

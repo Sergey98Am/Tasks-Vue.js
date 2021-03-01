@@ -5,6 +5,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
 import Profile from '@/components/Profile'
+import Boards from '@/components/Boards'
 
 Vue.use(Router)
 
@@ -35,6 +36,14 @@ const router = new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile,
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/boards',
+      name: 'Boards',
+      component: Boards,
       meta: {
         auth: true
       }
