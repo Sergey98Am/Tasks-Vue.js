@@ -14,6 +14,10 @@ export default {
 </script>
 
 <style>
+html {
+  --lh: 1.4rem;
+  line-height: var(--lh);
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
