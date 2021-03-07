@@ -68,6 +68,8 @@ export default {
 <style>
 .login {
   margin-top: 55px;
+  overflow: auto;
+  height: 100%;
 }
 
 .login .r {

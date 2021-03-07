@@ -6,6 +6,7 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import Profile from '@/components/Profile'
 import Boards from '@/components/Boards'
+import SingleBoard from '@/components/SingleBoard'
 
 Vue.use(Router)
 
@@ -44,6 +45,14 @@ const router = new Router({
       path: '/boards',
       name: 'Boards',
       component: Boards,
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/boards/:boardId',
+      name: 'SingleBoard',
+      component: SingleBoard,
       meta: {
         auth: true
       }

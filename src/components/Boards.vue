@@ -14,7 +14,7 @@
           <div class="card text-center">
             <div class="card-body">
               <h6 class="card-title">
-                <router-link to="/">{{ board.title }}</router-link>
+                <router-link :to="'/boards/' + board.id">{{ board.title }}</router-link>
               </h6>
               <button type="button" class="btn btn-secondary" @click="editModal(board)">
                 <font-awesome-icon :icon="['fas', 'edit']"/>
@@ -77,79 +77,12 @@
   </div>
 </template>
 
-<script>
-import * as boardService from '../services/boardService'
-import * as Pagination from '../pagination'
-
-export default {
-  data () {
-    return {
-      page: 1,
-      pageCount: 0,
-      pageSize: 4,
-      modal: false,
-      editMode: false,
-      boards: [],
-      id: '',
-      title: ''
-    }
-  },
-  computed: {
-    displayedBoards () {
-      return Pagination.paginate(this, this.boards)
-    }
-  },
-  mounted () {
-    this.getBoards()
-  },
-  methods: {
-    // Modal Settings
-    newModal () {
-      this.editMode = false
-      this.modal = true
-    },
-    editModal (board) {
-      this.editMode = true
-      this.id = board.id
-      this.title = board.title
-      this.modal = true
-    },
-    closeModal () {
-      this.modal = false
-      this.$validator.reset()
-      this.id = ''
-      this.title = ''
-    },
-    // End Modal Settings
-
-    // Validation
-    boardValidation: function () {
-      return boardService.validation()
-    },
-    // End Validation
-
-    // CRUD
-    getBoards () {
-      boardService.get(this)
-    },
-    storeBoard: function (target) {
-      boardService.store(target, this)
-    },
-    updateBoard: function (target) {
-      boardService.update(target, this)
-    },
-    deleteBoard (target, id) {
-      boardService.destroy(target, id, this)
-    }
-    // End CRUD
-  }
-}
-</script>
-
 <style>
 .boards {
   padding: 50px 0;
   margin-top: 55px;
+  overflow: auto;
+  height: 100%;
 }
 .boards .title {
   color: #060240;
@@ -251,3 +184,72 @@ export default {
 
 /* End Pagination */
 </style>
+
+<script>
+import * as boardService from '../services/boardService'
+import * as Pagination from '../pagination'
+
+export default {
+  data () {
+    return {
+      page: 1,
+      pageCount: 0,
+      pageSize: 4,
+      modal: false,
+      editMode: false,
+      boards: [],
+      id: '',
+      title: ''
+    }
+  },
+  computed: {
+    displayedBoards () {
+      return Pagination.paginate(this, this.boards)
+    }
+  },
+  mounted () {
+    this.getBoards()
+  },
+  methods: {
+    // Modal Settings
+    newModal () {
+      this.editMode = false
+      this.modal = true
+    },
+    editModal (board) {
+      this.editMode = true
+      this.id = board.id
+      this.title = board.title
+      this.modal = true
+    },
+    closeModal () {
+      this.modal = false
+      this.$validator.reset()
+      this.id = ''
+      this.title = ''
+    },
+    // End Modal Settings
+
+    // Validation
+    boardValidation: function () {
+      return boardService.validation()
+    },
+    // End Validation
+
+    // CRUD
+    getBoards () {
+      boardService.get(this)
+    },
+    storeBoard: function (target) {
+      boardService.store(target, this)
+    },
+    updateBoard: function (target) {
+      boardService.update(target, this)
+    },
+    deleteBoard (target, id) {
+      boardService.destroy(target, id, this)
+    }
+    // End CRUD
+  }
+}
+</script>

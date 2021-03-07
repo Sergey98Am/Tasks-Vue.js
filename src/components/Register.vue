@@ -109,6 +109,8 @@ export default {
 <style>
 .register {
   margin-top: 55px;
+  overflow: auto;
+  height: 100%;
 }
 .register .r {
   padding: 20px;

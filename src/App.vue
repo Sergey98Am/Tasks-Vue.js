@@ -14,9 +14,16 @@ export default {
 </script>
 
 <style>
+*, *:before, *:after {
+  box-sizing: border-box;
+}
 html {
-  --lh: 1.4rem;
-  line-height: var(--lh);
+  height: 100%;
+}
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -24,6 +31,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
   color: #E0DEDE;
   background: lightgray;
-  min-height: 90vh;
+  position: relative;
+  height: 100%;
+  /*min-height: 90vh;*/
 }
 </style>
