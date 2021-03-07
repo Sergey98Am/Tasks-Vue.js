@@ -29,6 +29,8 @@ export default {
 <style>
 .profile {
   margin-top: 55px;
+  overflow: auto;
+  height: 100%;
 }
 .profile .card {
   background: #12E7D4;
