@@ -8,17 +8,17 @@ function validation () {
   }
 }
 
-// function serverSideValidation (self, error) {
-//   const data = error.response.data
-//   if (data.error) {
-//     if (data.error.title) {
-//       self.$validator.errors.add({field: 'title', msg: data.error.title[0]})
-//     }
-//   }
-// }
+function serverSideValidation (self, error) {
+  const data = error.response.data
+  if (data.error) {
+    if (data.error.title) {
+      self.$validator.errors.add({field: 'title', msg: data.error.title[0]})
+    }
+  }
+}
 
 function get (self) {
-  authAxios.get('/boards/' + self.$route.params.boardId + '/lists').then(response => {
+  authAxios.get('/boards/' + self.$route.params.id + '/lists').then(response => {
     self.board_title = response.data.board.title
     self.lists = response.data.board.lists
     console.log(response)
@@ -32,7 +32,7 @@ function store (target, self) {
     if (result) {
       let formData = new FormData()
       formData.append('title', self.list_title)
-      authAxios.post('/boards/' + self.$route.params.boardId + '/lists', formData).then(response => {
+      authAxios.post('/boards/' + self.$route.params.id + '/lists', formData).then(response => {
         let newList = response.data.list
         self.lists.push(newList)
         self.list_title = ''
@@ -41,43 +41,51 @@ function store (target, self) {
           container.scrollLeft = container.scrollWidth
         }, 100)
         self.$validator.reset()
+        self.sortList()
       }).catch(error => {
-        // serverSideValidation(self, error)
+        serverSideValidation(self, error)
         console.log(error)
       })
     }
   })
 }
 
-function update (self) {
+function update (self, listParam) {
   let formData = new FormData()
   formData.append('_method', 'PUT')
-  formData.append('id', self.id)
-  formData.append('title', self.list_title)
-  authAxios.post('/boards/' + self.$route.params.boardId + '/lists/' + self.id, formData).then(response => {
-    if (self.list_title === '') {
-      self.list_title = response.data.list.title
+  formData.append('id', listParam.id)
+  formData.append('title', listParam.title)
+  authAxios.post('/boards/' + self.$route.params.id + '/lists/' + listParam.id, formData).then(response => {
+    if (listParam.title === '') {
+      listParam.title = response.data.list.title
     }
-    let list
-    for (list in self.lists) {
-      if (self.lists[list].id === response.data.list.id) {
-        self.lists[list].title = response.data.list.title
-      }
-    }
-    self.closeUpdateList()
+    // listParam.title = response.data.list.title
+    self.updateListId = ''
   }).catch(error => {
     console.log(error)
   })
 }
 
-function destroy (id, self) {
-  authAxios.delete('/boards/' + self.$route.params.boardId + '/lists/' + id).then(response => {
+function destroy (listParam, self) {
+  authAxios.delete('/boards/' + self.$route.params.id + '/lists/' + listParam.id).then(response => {
     let list
     for (list in self.lists) {
       if (self.lists[list].id === response.data.list.id) {
         self.lists.splice(list, 1)
       }
     }
+    self.sortList()
+  }).catch(error => {
+    console.log(error)
+  })
+}
+
+function sort (self) {
+  let ids = self.lists.map((list, index) => {
+    return list.id
+  })
+  authAxios.post('/sort_list', {ids: ids}).then(response => {
+    console.log(response)
   }).catch(error => {
     console.log(error)
   })
@@ -88,5 +96,6 @@ export {
   get,
   store,
   update,
-  destroy
+  destroy,
+  sort
 }

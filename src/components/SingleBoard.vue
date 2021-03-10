@@ -11,7 +11,7 @@
                  v-validate="listValidation().list_title"
                  :class="{ 'is-invalid':errors.has('list_title') }"
                  @keyup.enter="storeList">
-          <button class="input-button close-button" @click="closeAddList">
+          <button class="input-button close-button" @click="closeList">
             <font-awesome-icon :icon="['fas', 'times']"/>
           </button>
           <button class="input-button" @click="storeList">Add</button>
@@ -19,8 +19,8 @@
             <span v-if="errors.has('list_title')">{{ errors.first('list_title') }}</span>
           </div>
         </div>
-        <div class="button-mode" @click="editMode=true" v-else>
-          <button class="only-button">
+        <div class="button-mode" v-else>
+          <button class="only-button" @click="addListInput">
             <font-awesome-icon :icon="['fas', 'plus']"/>
             Add List
           </button>
@@ -29,57 +29,74 @@
     </div>
     <div class="board-content">
       <div class="board-canvas">
-        <div class="list-wrapper" v-for="list in lists" :key="list.id">
-          <div class="list-content">
-            <div class="list-header">
-              <div class="update-list">
-                <div class="input-mode" v-if="updateListId===list.id">
-                  <input type="text" v-model="list_title" @keyup.enter="updateList">
-                  <button @click="closeUpdateList">
-                    <font-awesome-icon :icon="['fas', 'times']"/>
-                  </button>
-                  <button class="update" @click="updateList">
-                    <font-awesome-icon :icon="['fas', 'check']"/>
-                  </button>
+        <draggable v-model="lists" v-bind="dragOptions" style="height: 100%" @change="sortList">
+          <transition-group type="transition" name="flip-list">
+            <div class="list-wrapper" v-for="list in lists" :key="list.id">
+              <div class="list-content">
+                <div class="list-header">
+                  <div class="update-list">
+                    <div class="input-mode" v-if="updateListId===list.id">
+                      <input type="text" v-model="list.title" @keyup.enter="updateList(list)">
+                      <button @click="closeList(list)">
+                        <font-awesome-icon :icon="['fas', 'times']"/>
+                      </button>
+                      <button class="update" @click="updateList(list)">
+                        <font-awesome-icon :icon="['fas', 'check']"/>
+                      </button>
+                    </div>
+                    <div class="button-mode" v-else>
+                      <h5 class="list-title">{{ list.title }}</h5>
+                      <button @click="updateListInput(list)">
+                        <font-awesome-icon :icon="['fas', 'edit']"/>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div class="button-mode" @click="updateInput(list)" v-else>
-                  <h5 class="list-title">{{ list.title }}</h5>
-                  <button>
-                    <font-awesome-icon :icon="['fas', 'edit']"/>
-                  </button>
+                <ul class="list-cards">
+                  <li>Complete mock-up for client website</li>
+                  <li>Email mock-up to client for feedback</li>
+                  <li>Email mock-up to client for feedback</li>
+                  <li>Email mock-up to client for feedback</li>
+                  <li>Email mock-up to client for feedback</li>
+                  <li>Email mock-up to client for feedback</li>
+                  <li>Email mock-up to client for feedback</li>
+                </ul>
+                <div class="list-footer">
+                  <div class="add-card">
+                    <button>
+                      <font-awesome-icon :icon="['fas', 'plus']"/>
+                      Add a card
+                    </button>
+                  </div>
+                  <div class="delete-list">
+                    <button @click="deleteList(list)">
+                      <font-awesome-icon :icon="['fas', 'trash']"/>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <ul class="list-cards">
-              <li>Complete mock-up for client website</li>
-              <li>Email mock-up to client for feedback</li>
-              <li>Email mock-up to client for feedback</li>
-              <li>Email mock-up to client for feedback</li>
-              <li>Email mock-up to client for feedback</li>
-              <li>Email mock-up to client for feedback</li>
-              <li>Email mock-up to client for feedback</li>
-            </ul>
-            <div class="list-footer">
-              <div class="add-card">
-                <button>
-                  <font-awesome-icon :icon="['fas', 'plus']"/>
-                  Add a card
-                </button>
-              </div>
-              <div class="delete-list">
-                <button @click="deleteList(list.id)">
-                  <font-awesome-icon :icon="['fas', 'trash']"/>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+          </transition-group>
+        </draggable>
       </div>
     </div>
   </div>
 </template>
 
 <style>
+/* Draggable */
+.board .ghost {
+  opacity: 0;
+}
+
+.board .board-canvas .drag {
+  z-index: 1;
+}
+/* End Draggable */
+
+.board .flip-list-move {
+  transition: transform 0.5s;
+}
 .board {
   padding-top: 55px;
   position: relative;
@@ -106,6 +123,10 @@
 }
 
 .board .board-header .add-list button {
+  width: 50px;
+  background: #12E7D4;
+  color: #060240;
+  border: 2px solid #060240;
   font-weight: 400;
   padding: 10px;
   border-radius: 0.3rem;
@@ -127,19 +148,6 @@
   border-radius: 0.3rem;
   transition: background-color 150ms;
   width: 250px;
-}
-
-.board .board-header .add-list .input-mode .input-button {
-  background-color: #12E7D4;
-  color: #060240;
-  border: 2px solid #060240;
-  width: 50px;
-}
-
-.board .board-header .add-list .input-mode .close-button {
-  background: #060240;
-  color: #12E7D4;
-  border: 2px solid #12E7D4;
 }
 
 .board .board-header .add-list .only-button {
@@ -236,7 +244,7 @@
 .board .list-header .update-list .input-mode input {
   background: none;
   border: none;
-  border-bottom: 1px solid #12E7D4;
+  /*border-bottom: 1px solid #12E7D4;*/
   color: #12E7D4;
   width: 100%;
 }
@@ -312,6 +320,7 @@
 </style>
 
 <script>
+import draggable from 'vuedraggable'
 import * as listService from '../services/listService'
 
 export default {
@@ -321,28 +330,44 @@ export default {
       updateListId: '',
       board_title: '',
       lists: [],
-      id: '',
       list_title: ''
+    }
+  },
+  components: {
+    draggable
+  },
+  computed: {
+    dragOptions () {
+      return {
+        group: 'description',
+        disabled: false,
+        ghostClass: 'ghost',
+        chosenClass: 'chosen',
+        dragClass: 'drag'
+      }
     }
   },
   mounted () {
     this.getLists()
   },
   methods: {
-    closeAddList () {
-      this.editMode = false
-      this.list_title = ''
-      this.$validator.reset()
-    },
-    closeUpdateList () {
-      this.id = ''
+    addListInput () {
+      this.editMode = true
       this.updateListId = ''
       this.list_title = ''
     },
-    updateInput (list) {
-      this.id = list.id
+    updateListInput (list) {
+      this.editMode = false
       this.updateListId = list.id
       this.list_title = list.title
+    },
+    closeList (list) {
+      this.editMode = false
+      this.updateListId = ''
+      list.title = this.list_title
+      this.list_title = ''
+      this.$validator.reset()
+      // console.log(list) // If there is no list, console.log is empty
     },
 
     // Validation
@@ -358,13 +383,17 @@ export default {
     storeList: function (target) {
       listService.store(target, this)
     },
-    updateList: function () {
-      listService.update(this)
+    updateList: function (list) {
+      listService.update(this, list)
     },
-    deleteList (id) {
-      listService.destroy(id, this)
-    }
+    deleteList (list) {
+      listService.destroy(list, this)
+    },
     // End CRUD
+
+    sortList () {
+      listService.sort(this)
+    }
   }
 }
 </script>

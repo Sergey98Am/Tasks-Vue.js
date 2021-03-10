@@ -50,7 +50,7 @@ const router = new Router({
       }
     },
     {
-      path: '/boards/:boardId',
+      path: '/boards/:id',
       name: 'SingleBoard',
       component: SingleBoard,
       meta: {
