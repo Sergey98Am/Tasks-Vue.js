@@ -6,7 +6,7 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import Profile from '@/components/Profile'
 import Boards from '@/components/Boards'
-import SingleBoard from '@/components/SingleBoard'
+import SingleBoard from '@/components/SingleBoard/SingleBoard.vue'
 
 Vue.use(Router)
 
