@@ -28,7 +28,7 @@ function get (self) {
 }
 
 function store (target, self) {
-  self.$validator.validateAll().then((result) => {
+  self.$validator.validate('list_title').then((result) => {
     if (result) {
       let formData = new FormData()
       formData.append('title', self.list_title)
@@ -40,8 +40,8 @@ function store (target, self) {
           let container = document.querySelector('.board-canvas')
           container.scrollLeft = container.scrollWidth
         }, 100)
-        self.$validator.reset()
-        self.sortList()
+        self.errors.remove(self.list_title)
+        sort(self)
       }).catch(error => {
         serverSideValidation(self, error)
         console.log(error)
@@ -74,14 +74,14 @@ function destroy (listParam, self) {
         self.lists.splice(list, 1)
       }
     }
-    self.sortList()
+    sort(self)
   }).catch(error => {
     console.log(error)
   })
 }
 
 function sort (self) {
-  let ids = self.lists.map((list, index) => {
+  let ids = self.lists.map((list) => {
     return list.id
   })
   authAxios.post('/sort_list', {ids: ids}).then(response => {
