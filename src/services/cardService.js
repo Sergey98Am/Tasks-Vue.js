@@ -71,14 +71,15 @@ function destroy (self, list, card) {
   })
 }
 
-function sort (list) {
+function sort (self, list) {
+  self.isLoading = true
   let ids = list.cards.map((card) => {
     return card.id
   })
-  authAxios.post('/sort_card', {ids: ids}).then(response => {
-    console.log(response)
-  }).catch(error => {
-    console.log(error)
+  authAxios.post('/sort_card', {ids: ids}).then(() => {
+    self.isLoading = false
+  }).catch(() => {
+    self.isLoading = false
   })
 }
 

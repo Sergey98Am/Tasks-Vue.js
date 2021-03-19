@@ -18,12 +18,13 @@ function serverSideValidation (self, error) {
 }
 
 function get (self) {
+  self.isLoading = true
   authAxios.get('/boards/' + self.$route.params.id + '/lists').then(response => {
     self.board_title = response.data.board.title
     self.lists = response.data.board.lists
-    console.log(response)
-  }).catch(error => {
-    console.log(error)
+    self.isLoading = false
+  }).catch(() => {
+    self.isLoading = false
   })
 }
 
@@ -81,13 +82,14 @@ function destroy (listParam, self) {
 }
 
 function sort (self) {
+  self.isLoading = true
   let ids = self.lists.map((list) => {
     return list.id
   })
   authAxios.post('/sort_list', {ids: ids}).then(response => {
-    console.log(response)
-  }).catch(error => {
-    console.log(error)
+    self.isLoading = false
+  }).catch(() => {
+    self.isLoading = false
   })
 }
 
