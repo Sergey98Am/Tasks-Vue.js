@@ -5,6 +5,7 @@ import * as cardService from '../../services/cardService'
 export default {
   data () {
     return {
+      isLoading: false,
       // List
       typingModeList: false,
       updateListId: '',
@@ -123,7 +124,7 @@ export default {
     // End CRUD
 
     sortCard (list) {
-      cardService.sort(list)
+      cardService.sort(this, list)
     },
     moveCardToAnotherList: function (event, list) {
       cardService.moveCard(event, list)
