@@ -35,6 +35,7 @@
                 <label class="form-check-label" for="exampleRememberMe1">Remember Me</label>
               </div>
               <button type="submit" class="submit-register btn btn-primary">Login</button>
+              <router-link class="forgot-password" to="/forgot-password">Can’t access your account?</router-link>
             </form>
           </div>
         </div>
@@ -91,5 +92,10 @@ export default {
 
 .login .submit-register {
   background: #060240;
+}
+.login .forgot-password {
+  color: #060240;
+  text-decoration: none;
+  margin-left: 15px;
 }
 </style>

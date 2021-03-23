@@ -4,6 +4,8 @@ import store from '../store/auth'
 import HelloWorld from '@/components/HelloWorld'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
+import ForgotPassword from '@/components/ForgotPassword'
+import ResetPassword from '@/components/ResetPassword'
 import Profile from '@/components/Profile'
 import Boards from '@/components/Boards'
 import SingleBoard from '@/components/SingleBoard/SingleBoard.vue'
@@ -29,6 +31,22 @@ const router = new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/forgot-password',
+      name: 'ForgotPassword',
+      component: ForgotPassword,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/reset-password',
+      name: 'ResetPassword',
+      component: ResetPassword,
       meta: {
         guest: true
       }
