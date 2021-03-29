@@ -105,7 +105,7 @@
 </style>
 
 <script>
-import * as resetPassword from '../services/resetPassword'
+import * as resetPassword from '../services/resetPasswordService'
 
 export default {
   data () {

@@ -47,11 +47,11 @@ export default new Vuex.Store({
         formData.append('email', payload.email)
         formData.append('password', payload.password)
         formData.append('password_confirmation', payload.password_confirmation)
-        formData.append('remember_me', payload.remember_me)
+        // formData.append('remember_me', payload.remember_me)
         axios.post('http://tasks.loc/api/auth/register', formData).then(response => {
-          commit('SET_loggedIn', true)
-          commit('SET_token', 'Bearer ' + response.data.token)
-          commit('SET_user', response.data.user)
+          // commit('SET_loggedIn', true)
+          // commit('SET_token', 'Bearer ' + response.data.token)
+          // commit('SET_user', response.data.user)
           resolve(response)
         }).catch(error => {
           reject(error)
