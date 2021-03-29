@@ -2,7 +2,7 @@
   <div class="register">
     <div class="container">
       <div class="row">
-        <div class="col-8 offset-2">
+        <div class="col-8 offset-2" v-if="registerForm">
           <div class="r mt-5">
             <form @submit.prevent="registerRequest">
               <div class="form-row">
@@ -11,7 +11,7 @@
                   <input type="text" class="form-control"
                          id="first_name"
                          name="first_name"
-                         v-model="first_name"
+                         v-model="user.first_name"
                          v-validate="registerValidation().first_name"
                          :class="{ 'is-invalid':errors.has('first_name') }">
                   <div class="invalid-feedback">
@@ -23,7 +23,7 @@
                   <input type="text" class="form-control"
                          id="last_name"
                          name="last_name"
-                         v-model="last_name"
+                         v-model="user.last_name"
                          v-validate="registerValidation().last_name"
                          :class="{ 'is-invalid':errors.has('last_name') }">
                   <div class="invalid-feedback">
@@ -35,7 +35,7 @@
                   <input type="text" class="form-control"
                          id="email"
                          name="email"
-                         v-model="email"
+                         v-model="user.email"
                          v-validate="registerValidation().email"
                          :class="{ 'is-invalid':errors.has('email') }">
                   <div class="invalid-feedback">
@@ -47,7 +47,7 @@
                   <input type="password" class="form-control"
                          id="password"
                          name="password"
-                         v-model="password"
+                         v-model="user.password"
                          v-validate="registerValidation().password"
                          ref="password"
                          :class="{ 'is-invalid':errors.has('password') }">
@@ -60,7 +60,7 @@
                   <input type="password" class="form-control"
                          id="password_confirmation"
                          name="password_confirmation"
-                         v-model="password_confirmation"
+                         v-model="user.password_confirmation"
                          v-validate="registerValidation().password_confirmation"
                          :class="{ 'is-invalid':errors.has('password_confirmation') }">
                   <div class="invalid-feedback">
@@ -68,14 +68,15 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group form-rememberMe">
-                <input type="checkbox" class="form-rememberMe-input" id="exampleRememberMe1" v-model="remember_me">
-                <label class="form-check-label" for="exampleRememberMe1">Remember Me</label>
-              </div>
               <button type="submit" class="submit-register btn btn-primary">Register</button>
               <router-link class="forgot-password" to="/forgot-password">Can’t access your account?</router-link>
             </form>
           </div>
+        </div>
+        <div class="col-6 offset-3" v-else>
+         <div class="r mt-5">
+           <h1>{{ registerMessage }}</h1>
+         </div>
         </div>
       </div>
     </div>
@@ -88,12 +89,15 @@ import * as userService from '../services/userService'
 export default {
   data () {
     return {
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-      remember_me: false
+      registerForm: true,
+      registerMessage: '',
+      user: {
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
+      }
     }
   },
   methods: {
@@ -134,5 +138,10 @@ export default {
   color: #060240;
   text-decoration: none;
   margin-left: 15px;
+}
+
+.register h1 {
+  color: #060240;
+  text-align: center;
 }
 </style>

@@ -52,15 +52,16 @@ function performRegister (self) {
   self.$validator.validateAll().then((result) => {
     if (result) {
       self.$store.dispatch('performRegisterAction', {
-        first_name: self.first_name,
-        last_name: self.last_name,
-        email: self.email,
-        password: self.password,
-        password_confirmation: self.password_confirmation,
-        remember_me: self.remember_me
-      }).then(result => {
-        console.log(result)
-        self.$router.push('/profile')
+        first_name: self.user.first_name,
+        last_name: self.user.last_name,
+        email: self.user.email,
+        password: self.user.password,
+        password_confirmation: self.user.password_confirmation
+      }).then(response => {
+        // eslint-disable-next-line no-return-assign
+        Object.keys(self.user).forEach(k => self.user[k] = '')
+        self.registerForm = false
+        self.registerMessage = response.data.message
       }).catch(error => {
         registerServerSideValidation(self, error)
       })
