@@ -7,6 +7,8 @@ import Login from '@/components/Login'
 import ForgotPassword from '@/components/ForgotPassword'
 import ResetPassword from '@/components/ResetPassword'
 import VerifyEmail from '@/components/VerifyEmail'
+import LoginGoogle from '@/components/LoginGoogle'
+import LoginFacebook from '@/components/LoginFacebook'
 import Profile from '@/components/Profile'
 import Boards from '@/components/Boards'
 import SingleBoard from '@/components/SingleBoard/SingleBoard.vue'
@@ -14,6 +16,7 @@ import SingleBoard from '@/components/SingleBoard/SingleBoard.vue'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -56,6 +59,22 @@ const router = new Router({
       path: '/verify-email',
       name: 'VerifyEmail',
       component: VerifyEmail,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/authorize/google/callback',
+      name: 'LoginGoogle',
+      component: LoginGoogle,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/authorize/facebook/callback',
+      name: 'LoginFacebook',
+      component: LoginFacebook,
       meta: {
         guest: true
       }
