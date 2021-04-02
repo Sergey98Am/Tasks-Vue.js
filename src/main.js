@@ -7,6 +7,7 @@ import store from './store/auth'
 import Paginate from 'vuejs-paginate'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
+import { faFontAwesome } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueSpinners from 'vue-spinners'
 
@@ -15,7 +16,7 @@ Vue.use(VeeValidate, {
 })
 Vue.use(VueSpinners)
 Vue.component('paginate', Paginate)
-library.add(fas)
+library.add(fas, faFontAwesome)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false

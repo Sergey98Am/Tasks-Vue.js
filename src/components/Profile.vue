@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-8 offset-2">
           <div class="mt-5 card">
-            <div class="card-header" v-if="user"><h2>{{ user.full_name }}</h2></div>
+            <div class="card-header" v-if="user"><h2>{{ user.name }}</h2></div>
             <div class="card-body" v-if="user">
               <h5 class="card-title">Email</h5>
               <h6 class="card-title">{{ user.email }}</h6>

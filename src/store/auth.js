@@ -86,6 +86,34 @@ export default new Vuex.Store({
           reject(error)
         })
       })
+    },
+    performLoginWithGoogleCallbackAction ({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        axios.get('http://tasks.loc/api/auth/authorize/google/callback', {
+          params: payload
+        }).then(response => {
+          commit('SET_loggedIn', true)
+          commit('SET_token', 'Bearer ' + response.data.token)
+          commit('SET_user', response.data.user)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    performLoginWithFacebookCallbackAction ({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        axios.get('http://tasks.loc/api/auth/authorize/facebook/callback', {
+          params: payload
+        }).then(response => {
+          commit('SET_loggedIn', true)
+          commit('SET_token', 'Bearer ' + response.data.token)
+          commit('SET_user', response.data.user)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
     }
   },
   getters: {
