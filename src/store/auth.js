@@ -25,33 +25,29 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    // checkTokenAction ({commit}) {
-    //   return new Promise((resolve, reject) => {
-    //     authAxios.post('/check-token').then(response => {
-    //       resolve(response)
-    //     }).catch(error => {
-    //       if (error.response && error.response.status === 400) {
-    //         commit('SET_loggedIn', false)
-    //         commit('SET_token', null)
-    //         commit('SET_user', null)
-    //       }
-    //       reject(error)
-    //     })
-    //   })
-    // },
+    checkTokenAction ({commit}) {
+      return new Promise((resolve, reject) => {
+        authAxios.post('/check-token').then(response => {
+          resolve(response)
+        }).catch(error => {
+          if (error.response && error.response.status === 400) {
+            commit('SET_loggedIn', false)
+            commit('SET_token', null)
+            commit('SET_user', null)
+          }
+          reject(error)
+        })
+      })
+    },
     performRegisterAction ({commit}, payload) {
       return new Promise((resolve, reject) => {
         let formData = new FormData()
-        formData.append('first_name', payload.first_name)
-        formData.append('last_name', payload.last_name)
+        formData.append('name', payload.name)
         formData.append('email', payload.email)
         formData.append('password', payload.password)
         formData.append('password_confirmation', payload.password_confirmation)
-        // formData.append('remember_me', payload.remember_me)
+        formData.append('g_recaptcha_response', payload.g_recaptcha_response)
         axios.post('http://tasks.loc/api/auth/register', formData).then(response => {
-          // commit('SET_loggedIn', true)
-          // commit('SET_token', 'Bearer ' + response.data.token)
-          // commit('SET_user', response.data.user)
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -64,6 +60,7 @@ export default new Vuex.Store({
         formData.append('email', payload.email)
         formData.append('password', payload.password)
         formData.append('remember_me', payload.remember_me)
+        formData.append('g_recaptcha_response', payload.g_recaptcha_response)
         axios.post('http://tasks.loc/api/auth/login', formData).then(response => {
           console.log(payload)
           commit('SET_loggedIn', true)

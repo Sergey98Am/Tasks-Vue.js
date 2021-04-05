@@ -7,9 +7,13 @@
 
 <script>
 import Navbar from './components/Navbar'
+import * as CheckToken from './services/checkToken'
 export default {
   name: 'App',
-  components: {Navbar}
+  components: {Navbar},
+  mounted () {
+    CheckToken.checkToken(this)
+  }
 }
 </script>
 

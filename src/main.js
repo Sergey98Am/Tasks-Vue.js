@@ -9,6 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { faFontAwesome } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import VueRecaptcha from 'vue-recaptcha'
 import VueSpinners from 'vue-spinners'
 
 Vue.use(VeeValidate, {
@@ -18,6 +19,7 @@ Vue.use(VueSpinners)
 Vue.component('paginate', Paginate)
 library.add(fas, faFontAwesome)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('vue-recaptcha', VueRecaptcha)
 
 Vue.config.productionTip = false
 

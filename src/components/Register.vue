@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-8 offset-2" v-if="registerForm">
-          <div class="r mt-5">
+          <div class="register-form">
             <div class="form-row">
               <div class="form-group col-md-12">
                 <label for="name">Name</label>
@@ -54,8 +54,15 @@
                   <span v-if="errors.has('password_confirmation')">{{ errors.first('password_confirmation') }}</span>
                 </div>
               </div>
+              <div class="form-group col-md-12">
+                <vue-recaptcha
+                  sitekey="6LeHNpwaAAAAAL9fhH2CrWfjPcsfCrzoJkFvNE9n"
+                  @verify="mxVerify"
+                ></vue-recaptcha>
+                <small v-if="recaptchaError">{{ recaptchaError }}</small>
+              </div>
             </div>
-            <button type="submit" class="submit-register btn btn-primary" @click="registerRequest">Register</button>
+            <button type="submit" class="submit-register" @click="registerRequest">Register</button>
             <router-link class="forgot-password" to="/forgot-password">Can’t access your account?</router-link>
             <div class="social">
               <h5>Login with a social network</h5>
@@ -67,9 +74,10 @@
               </button>
             </div>
           </div>
+          <circle-spin v-show="isLoading"></circle-spin>
         </div>
         <div class="col-6 offset-3" v-else>
-          <div class="r mt-5">
+          <div class="register-form">
             <h1>{{ registerMessage }}</h1>
           </div>
         </div>
@@ -79,45 +87,51 @@
 </template>
 
 <style>
+.sk-fading-circle {
+  margin: 30px auto!important;
+}
+.sk-circle::before {
+  background-color: #060240!important;
+}
 .register {
   margin-top: 55px;
+  padding: 50px 0;
   overflow: auto;
-  height: 100%;
+  height: calc(100% - 55px);
 }
 
-.register .r {
+.register-form {
   padding: 20px;
   border-radius: 15px;
   background: #12E7D4;
   border: 1px solid #060240;
 }
 
-.register label {
+.register-form label {
   color: #060240;
 }
 
-.register input {
+.register-form input {
   background: none;
   border: none;
   border-bottom: 3px solid #060240;
 }
 
-.register .submit-register {
+.register-form .submit-register {
   background: #060240;
+  color: #12E7D4;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
 }
 
-.register .forgot-password {
+.register-form .forgot-password {
   color: #060240;
   text-decoration: none;
   margin-left: 15px;
 }
 
-.register h1 {
-  color: #060240;
-  text-align: center;
-}
-
-.register .social h5 {
+.register-form .social h5 {
   color: #060240;
   font-style: italic;
   font-weight: bolder;
@@ -125,21 +139,31 @@
   margin-bottom: 10px;
 }
 
-.register .social button {
+.register-form .social button {
+  background: none;
   border: none;
   border-radius: 5px;
   padding: 5px;
   color: #060240;
 }
 
-.register .social button img {
+.register-form .social button img {
   width: 40px;
   height: 40px;
+  object-fit: cover;
 }
 
-.register .social button:first-child {
+.register-form .social button:first-child {
   margin-top: 10px !important;
   margin-right: 5px !important;
+}
+.register-form small {
+  color: red;
+}
+.register-form input:focus {
+  background: none;
+  border-color: inherit!important;
+  box-shadow: none!important;
 }
 </style>
 
@@ -149,8 +173,11 @@ import * as userService from '../services/userService'
 export default {
   data () {
     return {
+      isLoading: false,
       registerForm: true,
       registerMessage: '',
+      recaptcha: null,
+      recaptchaError: '',
       user: {
         name: '',
         email: '',
@@ -160,6 +187,10 @@ export default {
     }
   },
   methods: {
+    mxVerify (response) {
+      this.recaptcha = response
+      this.recaptchaError = ''
+    },
     registerValidation: function () {
       return userService.registerValidation()
     },
