@@ -39,22 +39,7 @@ export default new Vuex.Store({
         })
       })
     },
-    performRegisterAction ({commit}, payload) {
-      return new Promise((resolve, reject) => {
-        let formData = new FormData()
-        formData.append('name', payload.name)
-        formData.append('email', payload.email)
-        formData.append('password', payload.password)
-        formData.append('password_confirmation', payload.password_confirmation)
-        formData.append('g_recaptcha_response', payload.g_recaptcha_response)
-        axios.post('http://tasks.loc/api/auth/register', formData).then(response => {
-          resolve(response)
-        }).catch(error => {
-          reject(error)
-        })
-      })
-    },
-    performLoginAction ({commit}, payload) {
+    loginAction ({commit}, payload) {
       return new Promise((resolve, reject) => {
         let formData = new FormData()
         formData.append('email', payload.email)
@@ -62,7 +47,6 @@ export default new Vuex.Store({
         formData.append('remember_me', payload.remember_me)
         formData.append('g_recaptcha_response', payload.g_recaptcha_response)
         axios.post('http://tasks.loc/api/auth/login', formData).then(response => {
-          console.log(payload)
           commit('SET_loggedIn', true)
           commit('SET_token', 'Bearer ' + response.data.token)
           commit('SET_user', response.data.user)
@@ -72,7 +56,7 @@ export default new Vuex.Store({
         })
       })
     },
-    performLogoutAction ({commit}) {
+    logoutAction ({commit}) {
       return new Promise((resolve, reject) => {
         authAxios.get('/logout').then(response => {
           commit('SET_loggedIn', false)
@@ -84,7 +68,7 @@ export default new Vuex.Store({
         })
       })
     },
-    performLoginWithGoogleCallbackAction ({commit}, payload) {
+    loginWithGoogleCallbackAction ({commit}, payload) {
       return new Promise((resolve, reject) => {
         axios.get('http://tasks.loc/api/auth/authorize/google/callback', {
           params: payload
@@ -98,7 +82,7 @@ export default new Vuex.Store({
         })
       })
     },
-    performLoginWithFacebookCallbackAction ({commit}, payload) {
+    loginWithFacebookCallbackAction ({commit}, payload) {
       return new Promise((resolve, reject) => {
         axios.get('http://tasks.loc/api/auth/authorize/facebook/callback', {
           params: payload
@@ -107,6 +91,20 @@ export default new Vuex.Store({
           commit('SET_token', 'Bearer ' + response.data.token)
           commit('SET_user', response.data.user)
           resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    changeDetailsAction ({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        let formData = new FormData()
+        formData.append('name', payload.name)
+        formData.append('password', payload.password)
+        formData.append('password_confirmation', payload.password_confirmation)
+        authAxios.post('/change-details', formData).then(response => {
+          resolve(response)
+          commit('SET_user', response.data.user)
         }).catch(error => {
           reject(error)
         })

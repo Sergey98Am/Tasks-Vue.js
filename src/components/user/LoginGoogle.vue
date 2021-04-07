@@ -15,15 +15,15 @@
 </style>
 
 <script>
-import * as userService from '../services/userService'
+import * as authService from '../../services/authService'
 
 export default {
   mounted () {
-    this.performLoginGoogleCallback()
+    this.loginGoogleCallback()
   },
   methods: {
-    performLoginGoogleCallback: function () {
-      userService.performLoginWithGoogleCallback(this)
+    loginGoogleCallback: function () {
+      authService.loginWithGoogleCallback(this)
     }
   }
 }
