@@ -15,15 +15,15 @@
 </style>
 
 <script>
-import * as userService from '../services/userService'
+import * as authService from '../../services/authService'
 
 export default {
   mounted () {
-    this.performLoginFacebookCallback()
+    this.loginFacebookCallback()
   },
   methods: {
-    performLoginFacebookCallback: function () {
-      userService.performLoginWithFacebookCallback(this)
+    loginFacebookCallback: function () {
+      authService.loginWithFacebookCallback(this)
     }
   }
 }

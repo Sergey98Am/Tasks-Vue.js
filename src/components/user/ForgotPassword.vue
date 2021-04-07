@@ -83,7 +83,7 @@
 </style>
 
 <script>
-import * as resetPassword from '../services/resetPasswordService'
+import * as resetPassword from '../../services/resetPasswordService'
 
 export default {
   data () {

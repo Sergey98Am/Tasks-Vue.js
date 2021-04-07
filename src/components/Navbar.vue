@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import * as userService from '../services/userService'
+import * as authService from '../services/authService'
 
 export default {
   computed: {
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     LogoutRequest: function () {
-      userService.performLogout(this)
+      authService.logout(this)
     }
   }
 }

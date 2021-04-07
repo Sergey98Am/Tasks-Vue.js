@@ -1,5 +1,5 @@
 import axios from 'axios'
-import store from '../src/store/auth'
+import store from '../src/store/user'
 
 const axiosInstance = axios.create()
 

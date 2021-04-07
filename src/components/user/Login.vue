@@ -45,10 +45,10 @@
             <div class="social">
               <h5>Login with a social network</h5>
               <button @click="loginGoogle">
-                <img src="../assets/images/google.png" alt="">
+                <img src="../../assets/images/google.png" alt="">
               </button>
               <button @click="loginFacebook">
-                <img src="../assets/images/facebook.png" alt="">
+                <img src="../../assets/images/facebook.png" alt="">
               </button>
             </div>
           </div>
@@ -142,7 +142,7 @@
 </style>
 
 <script>
-import * as userService from '../services/userService'
+import * as authService from '../../services/authService'
 
 export default {
   data () {
@@ -161,16 +161,16 @@ export default {
       this.recaptchaError = ''
     },
     loginValidation: function () {
-      return userService.loginValidation()
+      return authService.loginValidation()
     },
     loginRequest: function () {
-      userService.performLogin(this)
+      authService.login(this)
     },
     loginGoogle: function () {
-      userService.loginWithGoogle()
+      authService.loginWithGoogle()
     },
     loginFacebook: function () {
-      userService.loginWithFacebook()
+      authService.loginWithFacebook()
     }
   }
 }
