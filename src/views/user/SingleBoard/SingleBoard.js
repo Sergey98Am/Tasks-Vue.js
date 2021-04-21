@@ -1,6 +1,6 @@
 import draggable from 'vuedraggable'
-import * as listService from '../../services/listService'
-import * as cardService from '../../services/cardService'
+import * as listService from '../../../services/listService'
+import * as cardService from '../../../services/cardService'
 
 export default {
   data () {
@@ -12,14 +12,11 @@ export default {
       board_title: '',
       lists: [],
       list_title: '',
-      // End List
-
       // Card
       listId: '',
       updateCardId: '',
       cards: [],
       card_title: ''
-      // End Card
     }
   },
   components: {
@@ -60,30 +57,28 @@ export default {
     },
 
     // Validation
-    listValidation: function () {
+    listValidation () {
       return listService.validation()
     },
-    // End Validation
 
     // CRUD
     getLists () {
       listService.get(this)
     },
-    storeList: function (target) {
+    storeList (target) {
       listService.store(target, this)
     },
-    updateList: function (list) {
+    updateList (list) {
       listService.update(this, list)
     },
     deleteList (list) {
       listService.destroy(list, this)
     },
-    // End CRUD
 
+    // Sort
     sortList () {
       listService.sort(this)
     },
-    // End Lists
 
     // Cards
     openAddCardTypingMode (list) {
@@ -106,16 +101,15 @@ export default {
     },
 
     // Validation
-    cardValidation: function () {
+    cardValidation () {
       return cardService.validation()
     },
-    // End Validation
 
     // CRUD
-    storeCard: function (target, list) {
+    storeCard (target, list) {
       cardService.store(this, target, list)
     },
-    updateCard: function (list, card) {
+    updateCard (list, card) {
       cardService.update(this, list, card)
     },
     deleteCard (list, card) {
@@ -126,9 +120,8 @@ export default {
     sortCard (list) {
       cardService.sort(this, list)
     },
-    moveCardToAnotherList: function (event, list) {
+    moveCardToAnotherList (event, list) {
       cardService.moveCard(event, list)
     }
-    // End Cards
   }
 }

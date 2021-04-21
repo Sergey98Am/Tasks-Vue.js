@@ -3,15 +3,14 @@
 </template>
 
 <script>
-import * as verifyEmail from '../../services/verifyEmailService'
+import * as verifyEmail from '../../../services/verifyEmailService'
 
 export default {
   mounted () {
-    console.log(this.$route.query)
     this.verifyEmailService()
   },
   methods: {
-    verifyEmailService: function () {
+    verifyEmailService () {
       verifyEmail.verifyEmailService(this)
     }
   }

@@ -22,6 +22,9 @@ export default new Vuex.Store({
     },
     SET_user (state, payload) {
       state.user = payload
+    },
+    SET_abilities (state, payload) {
+      state.abilities = payload
     }
   },
   actions: {

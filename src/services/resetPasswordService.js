@@ -33,7 +33,6 @@ function forgotPasswordService (self) {
     }
   })
 }
-// End Forgot Password
 
 // Reset Password
 function resetPasswordValidation () {
@@ -68,10 +67,11 @@ function resetPasswordServerSideValidation (self, error) {
         msg: data.error.password_confirmation[0]
       })
     }
+    self.$validator.errors.add({field: 'password_confirmation', msg: data.error})
   }
-  if (data.message) {
-    self.$validator.errors.add({field: 'password', msg: data.message})
-  }
+  // if (data.message) {
+  //   self.$validator.errors.add({field: 'password', msg: data.message})
+  // }
 }
 
 function resetPasswordService (self) {
@@ -84,7 +84,7 @@ function resetPasswordService (self) {
       formData.append('email', self.email)
       formData.append('password', self.password)
       formData.append('password_confirmation', self.password_confirmation)
-      axios.post('http://tasks.loc/api/auth/reset-password', formData).then(response => {
+      axios.post('http://tasks.loc/api/auth/reset-password', formData).then(() => {
         self.isLoading = false
         self.$router.push('/login')
       }).catch(error => {
@@ -94,7 +94,6 @@ function resetPasswordService (self) {
     }
   })
 }
-// End Reset Password
 
 export {
   forgotPasswordValidation,

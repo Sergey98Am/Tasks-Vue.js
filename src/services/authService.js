@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 // Register
-
 function registerValidation () {
   return {
     name: {
@@ -75,10 +74,7 @@ function register (self) {
   })
 }
 
-// End Register
-
 // Login
-
 function loginValidation () {
   return {
     email: {
@@ -104,9 +100,9 @@ function loginServerSideValidation (self, error) {
   if (data.message) {
     self.$validator.errors.add({field: 'password', msg: data.message})
   }
-  if (data.error.g_recaptcha_response) {
-    self.recaptchaError = data.error.g_recaptcha_response[0]
-  }
+  // if (data.error.g_recaptcha_response) {
+  //   self.recaptchaError = data.error.g_recaptcha_response[0]
+  // }
 }
 
 function login (self) {
@@ -121,9 +117,12 @@ function login (self) {
         password: self.password,
         remember_me: self.remember_me,
         g_recaptcha_response: self.recaptcha
-      }).then(() => {
+      }).then(response => {
         self.isLoading = false
-        self.$router.push('/profile')
+        if (response.data.user.role_id !== 1) {
+          return self.$router.push('/admin')
+        }
+        return self.$router.push('/')
       }).catch(error => {
         self.isLoading = false
         loginServerSideValidation(self, error)
@@ -132,10 +131,7 @@ function login (self) {
   })
 }
 
-// End Login
-
 // Logout
-
 function logout (self) {
   self.$store.dispatch('logoutAction').then(() => {
     if (self.$route.path !== '/') {
@@ -146,10 +142,7 @@ function logout (self) {
   })
 }
 
-// End Logout
-
 // Login with Google
-
 function loginWithGoogle () {
   axios.get('http://tasks.loc/api/auth/authorize/google/redirect').then((response) => {
     if (response.data.url) {
@@ -160,23 +153,20 @@ function loginWithGoogle () {
   })
 }
 
-// End Login with Google
-
 // Login with Google callback
-
 function loginWithGoogleCallback (self) {
   let code = self.$route.query.code
-  self.$store.dispatch('loginWithGoogleCallbackAction', {code}).then(() => {
-    self.$router.push('/profile')
+  self.$store.dispatch('loginWithGoogleCallbackAction', {code}).then(response => {
+    if (response.data.user.role_id !== 1) {
+      return self.$router.push('/admin')
+    }
+    return self.$router.push('/')
   }).catch(error => {
     console.log(error)
   })
 }
 
-// End Login with Google callback
-
 // Login with Facebook
-
 function loginWithFacebook () {
   axios.get('http://tasks.loc/api/auth/authorize/facebook/redirect').then(response => {
     if (response.data.url) {
@@ -187,20 +177,18 @@ function loginWithFacebook () {
   })
 }
 
-// End Login with Facebook
-
 // Login with Facebook callback
-
 function loginWithFacebookCallback (self) {
   let code = self.$route.query.code
-  self.$store.dispatch('loginWithFacebookCallbackAction', {code}).then(() => {
-    self.$router.push('/profile')
+  self.$store.dispatch('loginWithFacebookCallbackAction', {code}).then(response => {
+    if (response.data.user.role_id !== 1) {
+      return self.$router.push('/admin')
+    }
+    return self.$router.push('/')
   }).catch(error => {
     console.log(error)
   })
 }
-
-// End Login with Facebook callback
 
 export {
   registerValidation,

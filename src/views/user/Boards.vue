@@ -77,117 +77,9 @@
   </div>
 </template>
 
-<style>
-.boards {
-  padding: 50px 0;
-  margin-top: 55px;
-  overflow: auto;
-  height: 100%;
-}
-.boards .title {
-  color: #060240;
-}
-.boards .create-board {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.boards .create-board button {
-  background: #12E7D4;
-  color: #060240;
-  border: 1px solid #060240;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.boards .card {
-  background: #060240;
-}
-
-.boards .card h6 a {
-  color: #12E7D4;
-  display: block;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-/* Modal */
-
-.boards .modal {
-  background-color: rgba(0, 0, 0, 0.3);
-  overflow: auto;
-}
-
-.boards .modal .modal-content {
-  background: #12E7D4!important;
-}
-
-.boards .modal .modal-title {
-  color: #060240;
-}
-
-.boards .modal label {
-  color: #060240;
-}
-
-.modal input {
-  background: none;
-  border: none;
-  border-bottom: 3px solid #060240;
-}
-
-.boards .modal .create-button {
-  background: #060240;
-  color: #12E7D4;
-}
-
-.boards .modal .update-button {
-  background: #060240;
-  color: #12E7D4;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
-{
-  opacity: 0;
-}
-
-/* End Modal */
-
-/* Pagination */
-
-.pagination {
-  margin-top: 10px;
-}
-.pagination > .active > a {
-  color: white;
-  background-color: grey;
-}
-
-.pagination > li > a {
-  background: white;
-  display: block;
-  padding: 6px 12px;
-  outline: none;
-  text-decoration: none;
-  color: inherit;
-}
-
-.pagination > .active > a:hover {
-  color: white;
-}
-
-/* End Pagination */
-</style>
-
 <script>
-import * as boardService from '../services/boardService'
-import * as Pagination from '../pagination'
+import * as boardService from '../../services/boardService'
+import * as Pagination from '../../pagination'
 
 export default {
   data () {
@@ -228,28 +120,62 @@ export default {
       this.id = ''
       this.title = ''
     },
-    // End Modal Settings
 
     // Validation
-    boardValidation: function () {
+    boardValidation () {
       return boardService.validation()
     },
-    // End Validation
 
     // CRUD
     getBoards () {
       boardService.get(this)
     },
-    storeBoard: function (target) {
+    storeBoard (target) {
       boardService.store(target, this)
     },
-    updateBoard: function (target) {
+    updateBoard (target) {
       boardService.update(target, this)
     },
     deleteBoard (target, id) {
       boardService.destroy(target, id, this)
     }
-    // End CRUD
   }
 }
 </script>
+
+<style>
+.boards {
+  padding: 50px 0;
+  margin-top: 55px;
+  overflow: auto;
+  height: calc(100% - 55px);
+}
+.boards .title {
+  color: #060240;
+}
+.boards .create-board {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.boards .create-board button {
+  background: #12E7D4;
+  color: #060240;
+  border: 1px solid #060240;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.boards .card {
+  background: #060240;
+}
+
+.boards .card h6 a {
+  color: #12E7D4;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+</style>

@@ -60,9 +60,7 @@
                     <li v-for="card in list.cards" :key="card.id" :cardId="card.id">
                       <div class="update-card">
                         <div class="typing-mode" v-if="updateCardId===card.id">
-                          <input type="text" v-model="card.title"
-                                 v-validate="listValidation().card_title"
-                                 :class="{ 'is-invalid':errors.has('card_title') }">
+                          <input type="text" v-model="card.title">
                           <button @click="closeCard(card)">
                             <font-awesome-icon :icon="['fas', 'times']"/>
                           </button>

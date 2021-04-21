@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-8 offset-2">
-          <div class="r mt-5">
+          <div class="reset-password-form">
             <h3>Reset Password</h3>
             <div class="form-row">
               <div class="form-group col-md-12">
@@ -53,6 +53,30 @@
   </div>
 </template>
 
+<script>
+import * as resetPassword from '../../../services/resetPasswordService'
+
+export default {
+  data () {
+    return {
+      isLoading: false,
+      token: '',
+      email: '',
+      password: '',
+      password_confirmation: ''
+    }
+  },
+  methods: {
+    resetPasswordValidation () {
+      return resetPassword.resetPasswordValidation()
+    },
+    resetPasswordService () {
+      resetPassword.resetPasswordService(this)
+    }
+  }
+}
+</script>
+
 <style>
 .reset-password .sk-fading-circle {
   margin: 50px auto !important;
@@ -60,18 +84,19 @@
 
 .reset-password {
   margin-top: 55px;
+  padding: 50px 0;
   overflow: auto;
-  height: 100%;
+  height: calc(100% - 55px);
 }
 
-.reset-password .r {
+.reset-password .reset-password-form {
   padding: 20px;
   border-radius: 15px;
   background: #12E7D4;
   border: 1px solid #060240;
 }
 
-.reset-password .r h3 {
+.reset-password .reset-password-form h3 {
   background: #060240;
   color: #12E7D4;
   padding: 10px;
@@ -103,27 +128,3 @@
   color: #060240;
 }
 </style>
-
-<script>
-import * as resetPassword from '../../services/resetPasswordService'
-
-export default {
-  data () {
-    return {
-      isLoading: false,
-      token: '',
-      email: '',
-      password: '',
-      password_confirmation: ''
-    }
-  },
-  methods: {
-    resetPasswordValidation: function () {
-      return resetPassword.resetPasswordValidation()
-    },
-    resetPasswordService: function () {
-      resetPassword.resetPasswordService(this)
-    }
-  }
-}
-</script>

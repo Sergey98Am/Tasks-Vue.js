@@ -12,7 +12,7 @@ function serverSideValidation (self, error) {
   const data = error.response.data
   if (data.error) {
     if (data.error.title) {
-      self.$validator.errors.add({field: 'title', msg: data.error.title[0]})
+      self.$validator.errors.add({field: 'list_title', msg: data.error.title[0]})
     }
   }
 }
@@ -45,7 +45,6 @@ function store (target, self) {
         sort(self)
       }).catch(error => {
         serverSideValidation(self, error)
-        console.log(error)
       })
     }
   })
