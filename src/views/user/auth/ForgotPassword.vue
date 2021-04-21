@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-6 offset-3" v-if="forgotPasswordForm">
-          <div class="r mt-5">
+          <div class="forgot-password-form">
             <h3>Forgot Password</h3>
             <div class="form-group">
               <label for="email">Email</label>
@@ -32,24 +32,48 @@
   </div>
 </template>
 
+<script>
+import * as resetPassword from '../../../services/resetPasswordService'
+
+export default {
+  data () {
+    return {
+      isLoading: false,
+      email: '',
+      thankYou: '',
+      forgotPasswordForm: true
+    }
+  },
+  methods: {
+    forgotPasswordValidation () {
+      return resetPassword.forgotPasswordValidation()
+    },
+    forgotPasswordService () {
+      resetPassword.forgotPasswordService(this)
+    }
+  }
+}
+</script>
+
 <style>
 .forgot-password .sk-fading-circle {
   margin: 50px auto!important;
 }
 .forgot-password {
   margin-top: 55px;
+  padding: 50px 0;
   overflow: auto;
-  height: 100%;
+  height: calc(100% - 55px);
 }
 
-.forgot-password .r {
+.forgot-password .forgot-password-form {
   padding: 20px;
   border-radius: 15px;
   background: #12E7D4;
   border: 1px solid #060240;
 }
 
-.forgot-password .r h3 {
+.forgot-password .forgot-password-form h3 {
   background: #060240;
   color: #12E7D4;
   padding: 10px;
@@ -81,26 +105,3 @@
   color: #060240;
 }
 </style>
-
-<script>
-import * as resetPassword from '../../services/resetPasswordService'
-
-export default {
-  data () {
-    return {
-      isLoading: false,
-      email: '',
-      thankYou: '',
-      forgotPasswordForm: true
-    }
-  },
-  methods: {
-    forgotPasswordValidation: function () {
-      return resetPassword.forgotPasswordValidation()
-    },
-    forgotPasswordService: function () {
-      resetPassword.forgotPasswordService(this)
-    }
-  }
-}
-</script>

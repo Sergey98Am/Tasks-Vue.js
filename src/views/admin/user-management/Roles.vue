@@ -1,0 +1,203 @@
+<template>
+  <div class="roles">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="title"><i><b>Roles</b></i></h1>
+          <div v-if="$can('role_create')" class="create">
+            <button type="button" @click="newModal">
+              Create New Role
+            </button>
+          </div>
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Permissions</th>
+              <th scope="col" class="actions">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="role in displayedRoles" :key="role.id">
+              <td>{{ role.title }}</td>
+              <td class="permission">
+                <span v-for="permission in role.permissions" :key="permission.id">
+                  {{ permission.title }}
+                </span>
+              </td>
+              <td class="actions">
+                <button v-if="$can('role_edit')" type="button" class="edit" @click="editModal(role)">
+                  <span class="icon">
+                    <font-awesome-icon :icon="['fas', 'edit']"/>
+                  </span>
+                  Edit
+                </button>
+                <button v-if="$can('role_delete')" class="delete" @click="deleteRole($event.target, role.id)">
+                  <div class="spinner-border text-light delete-loader" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <span class="icon">
+                    <font-awesome-icon :icon="['fas', 'trash']"/>
+                  </span>
+                  Delete
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-12">
+          <paginate v-model="page" :page-count="pageCount" :page-range="3"
+                    :margin-pages="1" :prev-text="'Prev'" :next-text="'Next'"
+                    :container-class="'pagination'" :page-class="'page-item'"
+                    :hide-prev-next="true"></paginate>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <transition name="fade">
+      <div class="modal" style="display: block" v-show="modal" @click.self="closeModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 v-if="editMode" class="modal-title">Edit Role</h5>
+              <h5 v-else class="modal-title">Create Role</h5>
+              <button type="button" class="close" @click="closeModal">
+                <span>&times;</span>
+              </button>
+            </div>
+            <div class="form">
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="title">Title</label>
+                  <input type="text" class="form-control"
+                         id="title"
+                         name="title"
+                         v-model="title"
+                         v-validate="roleValidation().title"
+                         :class="{ 'is-invalid':errors.has('title') }">
+                  <div class="invalid-feedback">
+                    <span v-if="errors.has('title')">{{ errors.first('title') }}</span>
+                  </div>
+                </div>
+                <div>
+                  <multiselect placeholder="Select Permission(s)" :multiple="true"
+                               :options="permissions.map(permission => permission.id)"
+                               :custom-label="opt => permissions.find(permission => permission.id === opt).title"
+                               v-model="selectedPermissions"></multiselect>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="close-button btn btn-secondary" @click="closeModal">Close</button>
+                <button v-if="editMode" class="update-button btn btn-dark" @click="updateRole($event.target)">
+                  <span class="icon">
+                    <font-awesome-icon :icon="['fas', 'pen-alt']"/>
+                  </span>
+                  <div class="spinner-border text-dark edit-loader" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  Update
+                </button>
+                <button v-else class="create-button btn btn-dark" @click="storeRole($event.target)">
+                  <span class="icon">
+                    <font-awesome-icon :icon="['fas', 'plus']"/>
+                  </span>
+                  <div class="spinner-border text-dark create-loader" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  Create
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+    <!-- End Modal -->
+    <circle-spin v-show="isLoading"></circle-spin>
+  </div>
+</template>
+
+<script>
+import * as roleService from '../../../services/admin/roleService'
+import * as Pagination from '../../../pagination'
+
+export default {
+  data () {
+    return {
+      isLoading: false,
+      page: 1,
+      pageCount: 0,
+      pageSize: 4,
+      modal: false,
+      editMode: false,
+      selectedPermissions: [],
+      permissions: [],
+      roles: [],
+      id: '',
+      title: ''
+    }
+  },
+  computed: {
+    displayedRoles () {
+      return Pagination.paginate(this, this.roles)
+    }
+  },
+  mounted () {
+    this.getRoles()
+  },
+  methods: {
+    // Modal Settings
+    newModal () {
+      this.editMode = false
+      this.modal = true
+    },
+    editModal (role) {
+      this.editMode = true
+      this.id = role.id
+      this.title = role.title
+      this.selectedPermissions = role.permissions.map(permission => permission.id)
+      this.modal = true
+    },
+    closeModal () {
+      this.modal = false
+      this.$validator.reset()
+      this.id = ''
+      this.title = ''
+      this.selectedPermissions = []
+    },
+
+    // Validation
+    roleValidation () {
+      return roleService.validation()
+    },
+
+    // CRUD
+    getRoles () {
+      roleService.get(this)
+    },
+    storeRole (target) {
+      roleService.store(target, this)
+    },
+    updateRole (target) {
+      roleService.update(target, this)
+    },
+    deleteRole (target, id) {
+      roleService.destroy(target, id, this)
+    }
+  }
+}
+</script>
+
+<style>
+.permission span {
+  background: #060240;
+  color: #12E7D4;
+  display: inline-block;
+  font-size: 13px;
+  padding: 5px 10px;
+  margin: 3px;
+  border-radius: 20px;
+}
+</style>

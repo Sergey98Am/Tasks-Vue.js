@@ -1,5 +1,4 @@
 // Change Details
-
 function userValidation () {
   return {
     name: {
@@ -58,8 +57,6 @@ function changeDetails (self, user) {
     }
   })
 }
-
-// End Change Details
 
 export {
   userValidation,

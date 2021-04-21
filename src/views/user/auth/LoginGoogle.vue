@@ -4,6 +4,21 @@
   </div>
 </template>
 
+<script>
+import * as authService from '../../../services/authService'
+
+export default {
+  mounted () {
+    this.loginGoogleCallback()
+  },
+  methods: {
+    loginGoogleCallback () {
+      authService.loginWithGoogleCallback(this)
+    }
+  }
+}
+</script>
+
 <style>
 .loginGoogle {
   padding-top: 55px;
@@ -13,18 +28,3 @@
   margin: 15px;
 }
 </style>
-
-<script>
-import * as authService from '../../services/authService'
-
-export default {
-  mounted () {
-    this.loginGoogleCallback()
-  },
-  methods: {
-    loginGoogleCallback: function () {
-      authService.loginWithGoogleCallback(this)
-    }
-  }
-}
-</script>

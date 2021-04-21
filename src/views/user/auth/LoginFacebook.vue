@@ -4,6 +4,21 @@
   </div>
 </template>
 
+<script>
+import * as authService from '../../../services/authService'
+
+export default {
+  mounted () {
+    this.loginFacebookCallback()
+  },
+  methods: {
+    loginFacebookCallback () {
+      authService.loginWithFacebookCallback(this)
+    }
+  }
+}
+</script>
+
 <style>
 .loginFacebook {
   padding-top: 55px;
@@ -13,18 +28,3 @@
   margin: 15px;
 }
 </style>
-
-<script>
-import * as authService from '../../services/authService'
-
-export default {
-  mounted () {
-    this.loginFacebookCallback()
-  },
-  methods: {
-    loginFacebookCallback: function () {
-      authService.loginWithFacebookCallback(this)
-    }
-  }
-}
-</script>

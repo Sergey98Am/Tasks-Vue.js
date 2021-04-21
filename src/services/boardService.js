@@ -34,10 +34,7 @@ function store (target, self) {
         self.closeModal()
         self.page = 1
         let newBoard = response.data.board
-        self.boards.push(newBoard)
-        self.boards.sort().reverse()
-        console.log(self.boards)
-        // get(self)
+        self.boards.unshift(newBoard)
       }).catch(error => {
         serverSideValidation(self, error)
       })
@@ -72,12 +69,11 @@ function update (target, self) {
 function destroy (target, id, self) {
   authAxios.delete('/boards/' + id).then(response => {
     let board
-    for (board of self.boards) {
-      if (board.id === response.data.board.id) {
-        self.boards.splice(response.data.board, 1)
+    for (board in self.boards) {
+      if (self.boards[board].id === response.data.board.id) {
+        self.boards.splice(board, 1)
       }
     }
-    // get(self)
   }).catch(error => {
     console.log(error)
   })

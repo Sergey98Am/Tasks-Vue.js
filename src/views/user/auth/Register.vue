@@ -56,7 +56,7 @@
               </div>
               <div class="form-group col-md-12">
                 <vue-recaptcha
-                  sitekey="6LeHNpwaAAAAAL9fhH2CrWfjPcsfCrzoJkFvNE9n"
+                  sitekey="6Lc_0K0aAAAAAMFYMbTlBK-9ysnXXLCGzo_BXApj"
                   @verify="mxVerify"
                 ></vue-recaptcha>
                 <small v-if="recaptchaError">{{ recaptchaError }}</small>
@@ -67,10 +67,10 @@
             <div class="social">
               <h5>Login with a social network</h5>
               <button @click="loginGoogle">
-                <img src="../../assets/images/google.png" alt="">
+                <img src="../../../assets/images/google.png" alt="">
               </button>
               <button @click="loginFacebook">
-                <img src="../../assets/images/facebook.png" alt="">
+                <img src="../../../assets/images/facebook.png" alt="">
               </button>
             </div>
           </div>
@@ -85,6 +85,46 @@
     </div>
   </div>
 </template>
+
+<script>
+import * as authService from '../../../services/authService'
+
+export default {
+  data () {
+    return {
+      isLoading: false,
+      registerForm: true,
+      registerMessage: '',
+      recaptcha: null,
+      recaptchaError: '',
+      user: {
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
+      }
+    }
+  },
+  methods: {
+    mxVerify (response) {
+      this.recaptcha = response
+      this.recaptchaError = ''
+    },
+    registerValidation () {
+      return authService.registerValidation()
+    },
+    registerRequest () {
+      authService.register(this)
+    },
+    loginGoogle () {
+      authService.loginWithGoogle()
+    },
+    loginFacebook () {
+      authService.loginWithFacebook()
+    }
+  }
+}
+</script>
 
 <style>
 .sk-fading-circle {
@@ -166,43 +206,3 @@
   box-shadow: none!important;
 }
 </style>
-
-<script>
-import * as authService from '../../services/authService'
-
-export default {
-  data () {
-    return {
-      isLoading: false,
-      registerForm: true,
-      registerMessage: '',
-      recaptcha: null,
-      recaptchaError: '',
-      user: {
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: ''
-      }
-    }
-  },
-  methods: {
-    mxVerify (response) {
-      this.recaptcha = response
-      this.recaptchaError = ''
-    },
-    registerValidation: function () {
-      return authService.registerValidation()
-    },
-    registerRequest: function () {
-      authService.register(this)
-    },
-    loginGoogle: function () {
-      authService.loginWithGoogle()
-    },
-    loginFacebook: function () {
-      authService.loginWithFacebook()
-    }
-  }
-}
-</script>

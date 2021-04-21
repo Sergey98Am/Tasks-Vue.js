@@ -12,7 +12,7 @@ function serverSideValidation (self, error) {
   const data = error.response.data
   if (data.error) {
     if (data.error.title) {
-      self.$validator.errors.add({field: 'title', msg: data.error.title[0]})
+      self.$validator.errors.add({field: 'card_title', msg: data.error.title[0]})
     }
   }
 }
@@ -31,10 +31,9 @@ function store (self, target, list) {
           container.scrollTop = container.scrollHeight
         }, 100)
         self.errors.remove(self.card_title)
-        sort(list)
+        sort(self, list)
       }).catch(error => {
         serverSideValidation(self, error)
-        console.log(error)
       })
     }
   })
@@ -65,7 +64,7 @@ function destroy (self, list, card) {
         list.cards.splice(card, 1)
       }
     }
-    sort(list)
+    sort(self, list)
   }).catch(error => {
     console.log(error)
   })
