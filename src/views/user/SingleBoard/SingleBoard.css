@@ -1,10 +1,11 @@
 /* Loading */
 .sk-fading-circle {
-  margin: 0!important;
-  margin-left: 10px!important;
+  margin: 0 !important;
+  margin-left: 10px !important;
 }
+
 .sk-circle::before {
-  background-color: #060240!important;
+  background-color: #060240 !important;
 }
 
 /* Draggable */
@@ -15,7 +16,17 @@
 .board .board-canvas .drag {
   z-index: 1;
 }
+
 /* End Draggable */
+
+.board ul {
+  padding: 0;
+  margin: 0;
+}
+
+.board ul li {
+  list-style: none;
+}
 
 .board .flip-list-move {
   transition: transform 0.5s;
@@ -34,6 +45,19 @@
   padding: 10px 0;
 }
 
+.board .board-header button {
+  width: 50px;
+  background: #12E7D4;
+  color: #060240;
+  border: 2px solid #060240;
+  font-weight: 400;
+  padding: 10px;
+  border-radius: 0.3rem;
+  transition: background-color 150ms;
+  text-align: center;
+  margin: 2px;
+}
+
 .board .board-header .board-title {
   color: #060240;
   margin: 0 15px;
@@ -44,18 +68,6 @@
 .board .board-header .add-list {
   display: inline-block;
   vertical-align: top;
-}
-
-.board .add-list button {
-  width: 50px;
-  background: #12E7D4;
-  color: #060240;
-  border: 2px solid #060240;
-  font-weight: 400;
-  padding: 10px;
-  border-radius: 0.3rem;
-  transition: background-color 150ms;
-  text-align: center;
 }
 
 .board .add-list .typing-mode {
@@ -79,6 +91,72 @@
   color: #060240;
   border: 2px solid #060240;
   width: 250px;
+}
+
+.board .invite-member button {
+  background-color: #060240;
+  color: #12E7D4;
+  border: 2px solid #12E7D4;
+  padding: 10px;
+}
+
+.board .invite-member .typing-mode input {
+  background: none;
+  color: #060240;
+  font-weight: 400;
+  border: none;
+  border-bottom: 2px solid #060240;
+  padding: 10px;
+  border-radius: 0.3rem;
+  transition: background-color 150ms;
+  width: 250px;
+}
+
+.board .invite-member .button-mode .only-button {
+  background-color: #060240;
+  color: #12E7D4;
+  border: 2px solid #12E7D4;
+  width: 250px;
+}
+
+.board .board-users button {
+  width: 150px;
+}
+
+.board .board-users .mini-container {
+  background: #12E7D4;
+  border: 2px solid #060240;
+  border-radius: 15px;
+  padding: 10px;
+  position: absolute;
+  z-index: 9;
+  /*display: none;*/
+}
+
+.users-dropdown {
+  display: block!important;
+}
+
+.board .board-users .mini-container ul {
+  max-height: 250px;
+  overflow: auto;
+}
+
+.board .board-users .mini-container ul::-webkit-scrollbar {
+  width: 20px;
+}
+
+.board .board-users .mini-container ul::-webkit-scrollbar-thumb {
+  border-right: 10px solid #bfc4ce;
+}
+
+.board .board-users .mini-container ul li {
+  color: #060240;
+  padding: 5px;
+  margin: 5px;
+  border-bottom: 2px solid #060240;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
 .board .board-content {
