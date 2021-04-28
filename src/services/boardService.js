@@ -79,10 +79,23 @@ function destroy (target, id, self) {
   })
 }
 
+function singleBoard (self) {
+  self.isLoading = true
+  authAxios.get('/single-board/board/' + self.$route.params.id).then(response => {
+    self.isLoading = false
+    self.board_title = response.data.board.title
+    self.lists = response.data.board.lists
+    self.board_users = response.data.board.users
+  }).catch(() => {
+    self.isLoading = false
+  })
+}
+
 export {
   validation,
   get,
   store,
   update,
-  destroy
+  destroy,
+  singleBoard
 }

@@ -17,6 +17,7 @@ import LoginFacebook from '@/views/user/auth/LoginFacebook.vue'
 import Profile from '@/views/user/Profile.vue'
 import Boards from '@/views/user/Boards.vue'
 import SingleBoard from '@/views/user/SingleBoard/SingleBoard.vue'
+import InviteToBoard from '@/views/user/InviteToBoard.vue'
 
 Vue.use(Router)
 
@@ -134,6 +135,14 @@ const router = new Router({
           path: 'boards/:id',
           name: 'SingleBoard',
           component: SingleBoard,
+          meta: {
+            auth: true
+          }
+        },
+        {
+          path: 'users/:userId/boards/:boardId',
+          name: 'InviteToBoard',
+          component: InviteToBoard,
           meta: {
             auth: true
           }

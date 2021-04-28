@@ -17,17 +17,6 @@ function serverSideValidation (self, error) {
   }
 }
 
-function get (self) {
-  self.isLoading = true
-  authAxios.get('/boards/' + self.$route.params.id + '/lists').then(response => {
-    self.board_title = response.data.board.title
-    self.lists = response.data.board.lists
-    self.isLoading = false
-  }).catch(() => {
-    self.isLoading = false
-  })
-}
-
 function store (target, self) {
   self.$validator.validate('list_title').then((result) => {
     if (result) {
@@ -94,7 +83,6 @@ function sort (self) {
 
 export {
   validation,
-  get,
   store,
   update,
   destroy,

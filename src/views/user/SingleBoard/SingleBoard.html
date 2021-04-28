@@ -1,8 +1,11 @@
 <div class="board">
   <div class="board-header">
-    <h3 class="board-title">{{ board_title }}</h3>
+    <h3 class="board-title">
+      {{ board_title }}
+      <circle-spin v-show="isLoading"></circle-spin>
+    </h3>
     <div class="add-list">
-      <div class="typing-mode" v-if="typingModeList">
+      <div class="typing-mode" v-if="selected === 'list'">
         <input type="text" placeholder="Add List"
                id="list_title"
                name="list_title"
@@ -19,13 +22,44 @@
         </div>
       </div>
       <div class="button-mode" v-else>
-        <button class="only-button" @click="openAddListTypingMode">
+        <button class="only-button" @click="openAddListTypingMode('list')">
           <font-awesome-icon :icon="['fas', 'plus']"/>
           Add List
         </button>
       </div>
     </div>
-    <circle-spin v-show="isLoading"></circle-spin>
+    <div class="invite-member">
+      <div v-if="selected === 'invite'" class="typing-mode">
+        <input type="text" placeholder="Email Address"
+               id="email"
+               name="email"
+               v-model="email"
+               v-validate="inviteValidation().email"
+               :class="{ 'is-invalid':errors.has('email') }">
+        <button class="input-button close-button" @click="closeList">
+          <font-awesome-icon :icon="['fas', 'times']"/>
+        </button>
+        <button class="input-button" @click="invite">
+          <font-awesome-icon :icon="['fas', 'check']"/>
+        </button>
+        <div class="invalid-feedback">
+          <span v-if="errors.has('email')">{{ errors.first('email') }}</span>
+        </div>
+      </div>
+      <div v-else class="button-mode">
+        <button class="only-button" @click="openInviteTypingMode('invite')">
+          Invite
+        </button>
+      </div>
+    </div>
+    <div class="board-users" style="color: black">
+      <button @click="toggleDropdown">Users</button>
+      <div class="mini-container" v-if="dropdown">
+        <ul>
+          <li v-for="user in board_users" :key="user.id">{{ user.name }}</li>
+        </ul>
+      </div>
+    </div>
   </div>
   <div class="board-content">
     <div class="board-canvas">

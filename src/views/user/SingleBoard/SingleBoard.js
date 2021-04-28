@@ -1,6 +1,8 @@
 import draggable from 'vuedraggable'
+import * as boardService from '../../../services/boardService'
 import * as listService from '../../../services/listService'
 import * as cardService from '../../../services/cardService'
+import * as inviteToBoardService from '../../../services/inviteToBoardService'
 
 export default {
   data () {
@@ -10,13 +12,19 @@ export default {
       typingModeList: false,
       updateListId: '',
       board_title: '',
+      board_users: [],
       lists: [],
       list_title: '',
       // Card
       listId: '',
       updateCardId: '',
       cards: [],
-      card_title: ''
+      card_title: '',
+      // Invite
+      typingModeInvite: false,
+      email: '',
+      dropdown: false,
+      selected: ''
     }
   },
   components: {
@@ -33,11 +41,16 @@ export default {
     }
   },
   mounted () {
-    this.getLists()
+    this.getSingleBoard()
   },
   methods: {
+    // Single Board
+    getSingleBoard () {
+      boardService.singleBoard(this)
+    },
     // Lists
-    openAddListTypingMode () {
+    openAddListTypingMode (selected) {
+      this.selected = selected
       this.typingModeList = true
       this.updateListId = ''
       this.list_title = ''
@@ -49,6 +62,7 @@ export default {
     },
     closeList (list) {
       this.typingModeList = false
+      this.selected = ''
       this.updateListId = ''
       list.title = this.list_title
       this.list_title = ''
@@ -62,9 +76,6 @@ export default {
     },
 
     // CRUD
-    getLists () {
-      listService.get(this)
-    },
     storeList (target) {
       listService.store(target, this)
     },
@@ -122,6 +133,27 @@ export default {
     },
     moveCardToAnotherList (event, list) {
       cardService.moveCard(event, list)
+    },
+
+    // Invite
+    // Validation
+    inviteValidation () {
+      return inviteToBoardService.validation()
+    },
+    openInviteTypingMode (selected) {
+      this.selected = selected
+      this.typingModeInvite = true
+    },
+    closeInvite () {
+      this.typingModeInvite = false
+      this.email = ''
+    },
+    invite () {
+      inviteToBoardService.invite(this)
+    },
+    toggleDropdown (selected) {
+      this.selected = selected
+      this.dropdown = !this.dropdown
     }
   }
 }
