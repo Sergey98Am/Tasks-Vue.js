@@ -5,12 +5,11 @@
 </template>
 
 <script>
-import Navbar from './components/UserNavbar'
 import * as CheckToken from './services/checkToken'
 
 export default {
   name: 'App',
-  components: {Navbar},
+  // components: {Navbar},
   mounted () {
     CheckToken.checkToken(this)
   }
@@ -50,7 +49,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #E0DEDE;
-  background: lightgray;
+  background-image: url('assets/images/background.jpg');
+  background-size: cover;
+  background-attachment: fixed;
   position: relative;
   height: 100%;
 }

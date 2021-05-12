@@ -1,90 +1,80 @@
 import authAxios from '../../config/authAxios'
 
-function validation () {
-  return {
-    card_title: {
-      required: true
-    }
+function store (self, target) {
+  if (self.card_title) {
+    let formData = new FormData()
+    formData.append('title', self.card_title)
+    authAxios.post('/lists/' + self.list.id + '/cards', formData).then(response => {
+      let newCard = response.data.card
+      self.list.cards.push(newCard)
+      self.card_title = ''
+      setTimeout(function () {
+        let container = target.closest('.list-wrapper').querySelector('.list-cards')
+        container.scrollTop = container.scrollHeight
+      }, 100)
+      sort(self, self.list)
+    }).catch(error => {
+      console.log(error)
+    })
   }
 }
 
-function serverSideValidation (self, error) {
-  const data = error.response.data
-  if (data.error) {
-    if (data.error.title) {
-      self.$validator.errors.add({field: 'card_title', msg: data.error.title[0]})
-    }
-  }
-}
-
-function store (self, target, list) {
-  self.$validator.validate('card_title').then((result) => {
-    if (result) {
-      let formData = new FormData()
-      formData.append('title', self.card_title)
-      authAxios.post('/lists/' + list.id + '/cards', formData).then(response => {
-        let newCard = response.data.card
-        list.cards.push(newCard)
-        self.card_title = ''
-        setTimeout(function () {
-          let container = target.closest('.list-wrapper').querySelector('.list-cards')
-          container.scrollTop = container.scrollHeight
-        }, 100)
-        self.errors.remove(self.card_title)
-        sort(self, list)
-      }).catch(error => {
-        serverSideValidation(self, error)
-      })
-    }
-  })
-}
-
-function update (self, list, card) {
+function update (self, event) {
+  // Loader
+  let loader = event.target.closest('.update-card').querySelector('.spinner-border')
+  loader.style.display = 'inline-block'
+  // End Loader
   let formData = new FormData()
   formData.append('_method', 'PUT')
-  formData.append('id', card.id)
-  formData.append('title', card.title)
-  formData.append('lists_id', list.id)
-  authAxios.post('/lists/' + list.id + '/cards/' + card.id, formData).then(response => {
-    if (card.title === '') {
-      card.title = response.data.card.title
+  formData.append('id', self.card.id)
+  formData.append('title', self.card.title)
+  formData.append('lists_id', self.list.id)
+  authAxios.post('/lists/' + self.list.id + '/cards/' + self.card.id, formData).then(response => {
+    // Loader
+    loader.style.display = 'none'
+    // End Loader
+    if (self.card.title === '') {
+      self.card.title = response.data.card.title
     }
-    // card.title = response.data.card.title
-    self.updateCardId = ''
+    self.card.title = response.data.card.title
+    self.card_title = response.data.card.title
+    let textarea = self.$refs.textarea
+    self.text_size = textarea.scrollHeight
+    textarea.blur()
   }).catch(error => {
     console.log(error)
   })
 }
 
-function destroy (self, list, card) {
-  authAxios.delete('/lists/' + list.id + '/cards/' + card.id).then(response => {
+function destroy (self) {
+  authAxios.delete('/lists/' + self.list.id + '/cards/' + self.card.id).then(response => {
     let card
-    for (card in list.cards) {
-      if (list.cards[card].id === response.data.card.id) {
-        list.cards.splice(card, 1)
+    for (card in self.list.cards) {
+      if (self.list.cards[card].id === response.data.card.id) {
+        self.list.cards.splice(card, 1)
       }
     }
-    sort(self, list)
+    sort(self, self.list)
   }).catch(error => {
     console.log(error)
   })
 }
 
-function sort (self, list) {
+function sort (self) {
   self.isLoading = true
-  let ids = list.cards.map((card) => {
+  let ids = self.list.cards.map((card) => {
     return card.id
   })
-  authAxios.post('/sort_card', {ids: ids}).then(() => {
+  authAxios.post('/sort-card', {ids: ids}).then(() => {
     self.isLoading = false
   }).catch(() => {
     self.isLoading = false
   })
 }
 
-function moveCard (event, list) {
+function moveCard (self, event) {
   let cardId = event.item.getAttribute('cardId')
-  authAxios.post('/move_card_to_another_list/' + cardId, {lists_id: list.id}).then(response => {
+  authAxios.post('/move-card-to-another-list/' + cardId, {lists_id: self.list.id}).then(response => {
     console.log(response)
   }).catch(error => {
     console.log(error)
@@ -92,7 +82,6 @@ function moveCard (event, list) {
 }
 
 export {
-  validation,
   store,
   update,
   destroy,
