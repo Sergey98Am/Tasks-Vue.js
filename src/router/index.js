@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store/user'
 import Admin from '@/layouts/Admin.vue'
+import AdminHome from '@/views/admin/AdminHome.vue'
 import Permissions from '@/views/admin/user-management/Permissions.vue'
 import Roles from '@/views/admin/user-management/Roles.vue'
 import Users from '@/views/admin/user-management/Users.vue'
@@ -15,8 +16,7 @@ import VerifyEmail from '@/views/user/auth/VerifyEmail.vue'
 import LoginGoogle from '@/views/user/auth/LoginGoogle.vue'
 import LoginFacebook from '@/views/user/auth/LoginFacebook.vue'
 import Profile from '@/views/user/Profile.vue'
-import Boards from '@/views/user/Boards.vue'
-import SingleBoard from '@/views/user/SingleBoard/SingleBoard.vue'
+import SingleBoard from '@/views/user/SingleBoard.vue'
 import InviteToBoard from '@/views/user/InviteToBoard.vue'
 
 Vue.use(Router)
@@ -25,11 +25,6 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
       path: '/admin',
       name: 'Admin',
       component: Admin,
@@ -37,6 +32,11 @@ const router = new Router({
         auth: true
       },
       children: [
+        {
+          path: '/',
+          name: 'AdminHome',
+          component: AdminHome
+        },
         {
           path: '/admin/permissions',
           name: 'Permissions',
@@ -59,6 +59,11 @@ const router = new Router({
       name: 'User',
       component: User,
       children: [
+        {
+          path: '/',
+          name: 'Home',
+          component: Home
+        },
         {
           path: 'register',
           name: 'Register',
@@ -119,14 +124,6 @@ const router = new Router({
           path: 'profile',
           name: 'Profile',
           component: Profile,
-          meta: {
-            auth: true
-          }
-        },
-        {
-          path: 'boards',
-          name: 'Boards',
-          component: Boards,
           meta: {
             auth: true
           }

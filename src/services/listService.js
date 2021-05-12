@@ -1,62 +1,52 @@
 import authAxios from '../../config/authAxios'
 
-function validation () {
-  return {
-    list_title: {
-      required: true
-    }
+function store (self) {
+  if (self.list_title) {
+    let formData = new FormData()
+    formData.append('title', self.list_title)
+    authAxios.post('/boards/' + self.$route.params.id + '/lists', formData).then(response => {
+      let newList = response.data.list
+      self.lists.push(newList)
+      self.list_title = ''
+      setTimeout(function () {
+        let container = document.querySelector('.board-canvas')
+        container.scrollLeft = container.scrollWidth
+      }, 100)
+      sort(self)
+    }).catch(error => {
+      console.log(error)
+    })
   }
 }
 
-function serverSideValidation (self, error) {
-  const data = error.response.data
-  if (data.error) {
-    if (data.error.title) {
-      self.$validator.errors.add({field: 'list_title', msg: data.error.title[0]})
-    }
-  }
-}
-
-function store (target, self) {
-  self.$validator.validate('list_title').then((result) => {
-    if (result) {
-      let formData = new FormData()
-      formData.append('title', self.list_title)
-      authAxios.post('/boards/' + self.$route.params.id + '/lists', formData).then(response => {
-        let newList = response.data.list
-        self.lists.push(newList)
-        self.list_title = ''
-        setTimeout(function () {
-          let container = document.querySelector('.board-canvas')
-          container.scrollLeft = container.scrollWidth
-        }, 100)
-        self.errors.remove(self.list_title)
-        sort(self)
-      }).catch(error => {
-        serverSideValidation(self, error)
-      })
-    }
-  })
-}
-
-function update (self, listParam) {
+function update (self) {
+  // Loader
+  let loader = self.$refs.spinner
+  loader.style.display = 'inline-block'
+  // End Loader
   let formData = new FormData()
   formData.append('_method', 'PUT')
-  formData.append('id', listParam.id)
-  formData.append('title', listParam.title)
-  authAxios.post('/boards/' + self.$route.params.id + '/lists/' + listParam.id, formData).then(response => {
-    if (listParam.title === '') {
-      listParam.title = response.data.list.title
+  formData.append('id', self.list.id)
+  formData.append('title', self.list.title)
+  authAxios.post('/boards/' + self.$route.params.id + '/lists/' + self.list.id, formData).then(response => {
+    // Loader
+    loader.style.display = 'none'
+    // End Loader
+    if (self.list.title === '') {
+      self.list.title = response.data.list.title
     }
-    // listParam.title = response.data.list.title
-    self.updateListId = ''
+    self.list.title = response.data.list.title
+    self.list_title = response.data.list.title
+    let textarea = self.$refs.textarea
+    self.text_size = textarea.scrollHeight
+    textarea.blur()
   }).catch(error => {
     console.log(error)
   })
 }
 
-function destroy (listParam, self) {
-  authAxios.delete('/boards/' + self.$route.params.id + '/lists/' + listParam.id).then(response => {
+function destroy (self) {
+  authAxios.delete('/boards/' + self.$route.params.id + '/lists/' + self.list.id).then(response => {
     let list
     for (list in self.lists) {
       if (self.lists[list].id === response.data.list.id) {
@@ -74,7 +64,7 @@ function sort (self) {
   let ids = self.lists.map((list) => {
     return list.id
   })
-  authAxios.post('/sort_list', {ids: ids}).then(response => {
+  authAxios.post('/sort-list', {ids: ids}).then(() => {
     self.isLoading = false
   }).catch(() => {
     self.isLoading = false
@@ -82,7 +72,6 @@ function sort (self) {
 }
 
 export {
-  validation,
   store,
   update,
   destroy,

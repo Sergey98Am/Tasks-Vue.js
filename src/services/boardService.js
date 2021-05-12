@@ -86,6 +86,7 @@ function singleBoard (self) {
     self.board_title = response.data.board.title
     self.lists = response.data.board.lists
     self.board_users = response.data.board.users
+    // self.board = response.data.board
   }).catch(() => {
     self.isLoading = false
   })

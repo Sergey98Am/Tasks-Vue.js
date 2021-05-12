@@ -15,6 +15,7 @@ export default {
 
 <style>
 /* Modal */
+
 .user .modal {
   background-color: rgba(0, 0, 0, 0.3);
   overflow: auto;
