@@ -77,12 +77,8 @@ function update (target, self) {
         icon.style.display = 'inline-block'
         // End Loader
         self.closeModal()
-        let permission
-        for (permission of self.permissions) {
-          if (permission.id === response.data.permission.id) {
-            permission.title = response.data.permission.title
-          }
-        }
+        let permission = self.permissions.find(permission => permission.id === response.data.permission.id)
+        permission.title = response.data.permission.title
       }).catch(error => {
         // Loader
         loader.style.display = 'none'
