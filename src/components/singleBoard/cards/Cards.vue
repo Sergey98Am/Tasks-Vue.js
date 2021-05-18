@@ -6,10 +6,16 @@
         <li v-for="card in list.cards" :key="card.id" :cardId="card.id">
           <div class="actions">
             <slot name="update-card" :list="list" :card="card"></slot>
+            <button @click="$emit('event', list.id, card)">
+              <font-awesome-icon :icon="['fas', 'door-open']"/>
+            </button>
             <button @click="$emit('event_triggered', card.id)">
               <font-awesome-icon :icon="['fas', 'comment-alt']"/>
             </button>
             <slot name="delete-card" :list="list" :card="card"></slot>
+          </div>
+          <div class="members">
+            <p v-for="member in card.members" :key="member.id">{{ member.name }}</p>
           </div>
         </li>
       </transition-group>

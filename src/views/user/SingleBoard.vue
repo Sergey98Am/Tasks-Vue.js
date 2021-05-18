@@ -51,7 +51,7 @@
       </template>
       <!-- Cards -->
       <template #cards="{list, dragOptions}">
-        <cards :list="list" :dragOptions="dragOptions" @event_triggered="goToComments">
+        <cards :list="list" :dragOptions="dragOptions" @event_triggered="goToComments" @event="goToCardModal">
           <template #add-card="{list}">
             <add-card :list="list"></add-card>
           </template>
@@ -64,6 +64,7 @@
         </cards>
       </template>
     </lists>
+    <card-modal :list="lists.find(list => list.id === listId)" :board_users="board_users" ref="card-modal"></card-modal>
     <comments ref="comments"></comments>
   </div>
 </template>
@@ -80,6 +81,7 @@ import AddCard from '../../components/singleBoard/cards/AddCard'
 import Comments from '../../components/singleBoard/Comments'
 import UpdateCard from '../../components/singleBoard/cards/UpdateCard'
 import DeleteCard from '../../components/singleBoard/cards/DeleteCard'
+import CardModal from '../../components/singleBoard/cards/CardModal'
 
 export default {
   data () {
@@ -88,6 +90,7 @@ export default {
       board_title: '',
       board_users: [],
       lists: [],
+      listId: '',
       // Invite
       typingModeInvite: false,
       email: '',
@@ -103,6 +106,7 @@ export default {
     'add-card': AddCard,
     'update-card': UpdateCard,
     'delete-card': DeleteCard,
+    'card-modal': CardModal,
     'comments': Comments
   },
   mounted () {
@@ -141,8 +145,14 @@ export default {
       this.selected = selected
       this.dropdown = !this.dropdown
     },
+    // Comments
     goToComments (cardId) {
       this.$refs.comments.commentModal(cardId)
+    },
+    // Card Modal
+    goToCardModal (listId, card) {
+      this.listId = listId
+      this.$refs['card-modal'].cardModal(card)
     }
   }
 }
@@ -155,7 +165,7 @@ ul {
 }
 
 .is-invalid {
-  border-bottom: 2px solid red!important;
+  border-bottom: 2px solid red !important;
 }
 
 /* Loading */
@@ -277,6 +287,6 @@ ul {
 }
 
 .active {
-  display: block!important;
+  display: block !important;
 }
 </style>

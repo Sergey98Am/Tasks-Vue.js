@@ -48,12 +48,6 @@ function store (target, self) {
         icon.style.display = 'inline-block'
         // End Loader
         self.closeModal()
-        let role
-        for (role of self.roles) {
-          if (role.id === response.data.role.id) {
-            role.permissions = response.data.role.permissions
-          }
-        }
         self.page = 1
         let newRole = response.data.role
         self.roles.unshift(newRole)
@@ -90,13 +84,8 @@ function update (target, self) {
         icon.style.display = 'inline-block'
         // End Loader
         self.closeModal()
-        let role
-        for (role of self.roles) {
-          if (role.id === response.data.role.id) {
-            role.title = response.data.role.title
-            role.permissions = response.data.role.permissions
-          }
-        }
+        let role = self.roles.find(role => role.id === response.data.role.id)
+        role.permissions = response.data.role.permissions
       }).catch(error => {
         // Loader
         loader.style.display = 'none'

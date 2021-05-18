@@ -81,10 +81,24 @@ function moveCard (self, event) {
   })
 }
 
+function addOrRemoveMembers (self) {
+  let formData = new FormData()
+  for (let i = 0; i < self.selectedMembers.length; i++) {
+    formData.append('members[]', self.selectedMembers[i])
+  }
+  authAxios.post('/cards/' + self.cardId + '/members', formData).then(response => {
+    let card = self.list.cards.find(card => card.id === response.data.card.id)
+    card.members = response.data.card.members
+  }).catch(() => {
+    //
+  })
+}
+
 export {
   store,
   update,
   destroy,
   sort,
-  moveCard
+  moveCard,
+  addOrRemoveMembers
 }
