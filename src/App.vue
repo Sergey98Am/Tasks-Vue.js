@@ -9,7 +9,6 @@ import * as CheckToken from './services/checkToken'
 
 export default {
   name: 'App',
-  // components: {Navbar},
   mounted () {
     CheckToken.checkToken(this)
   }
@@ -18,18 +17,6 @@ export default {
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
-/* Loader */
-
-.sk-fading-circle {
-  margin: 30px auto !important;
-}
-
-.sk-circle::before {
-  background-color: #060240 !important;
-}
-
-/* End Loader */
-
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -44,14 +31,25 @@ body {
   overflow: hidden;
 }
 
+input:focus, .modal .form-control:focus, textarea:focus, select:focus {
+  background: none !important;
+}
+
+.form-control:focus {
+  outline: 0 !important;
+  /*border-color: inherit !important;*/
+  -webkit-appearance:none !important;
+  box-shadow: none !important;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #E0DEDE;
-  background-image: url('assets/images/background.jpg');
-  background-size: cover;
-  background-attachment: fixed;
+  /*background-image: url('assets/images/background.jpg');*/
+  /*background-size: cover;*/
+  /*background-attachment: fixed;*/
   position: relative;
   height: 100%;
 }

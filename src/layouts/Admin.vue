@@ -1,19 +1,21 @@
 <template>
-  <div v-if="$can('view_admin_dashboard')" class="admin d-flex flex-column">
-    <v-menu></v-menu>
-    <div class="main">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <router-view></router-view>
+  <div class="admin">
+    <div v-if="$can('view_admin_dashboard')" class="a d-flex flex-column">
+      <v-menu></v-menu>
+      <div class="main">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <router-view></router-view>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="loading" v-else>
-    <div class="spinner-border text-primary" role="status">
-      <span class="sr-only">Loading...</span>
+    <div class="loading" v-else>
+      <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +56,14 @@ export default {
 </script>
 
 <style>
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
 .admin {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../assets/images/adminBackground.jpg');
+  background-size: cover;
+  background-attachment: fixed;
   min-height: 100vh;
 }
 
@@ -66,195 +75,192 @@ export default {
   min-height: 100vh
 }
 
-.admin .spinner-border {
+.spinner-border {
   width: 15px;
   height: 15px;
   display: none;
 }
 
-.admin .icon {
+.icon {
   pointer-events: none;
 }
 
-/* Main */
-.admin .main {
+.main {
   overflow: auto;
+  height: calc(100vh - 41px);
+  padding-top: 25px;
   margin-top: 41px;
   margin-left: 250px;
-  height: calc(100vh - 41px);
 }
 
-.admin .title {
-  color: #060240;
+.title {
+  color: #ffffff;
 }
 
-/* Create button */
-.admin .create {
+.create {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.admin .create button {
-  background: #060240;
-  color: #12E7D4;
-  font-weight: bold;
-  border: 3px solid #12E7D4;
-  border-radius: 7px;
+.create button {
   padding: 10px;
+  border: 2px solid #ffffff;
+  border-radius: 7px;
   margin-bottom: 10px;
+  background: #1d2c44;
+  color: #ffffff;
+  font-weight: bold;
 }
 
-/* Inputs */
-.admin input {
-  background: none;
-  border: none;
-  color: #12E7D4;
-  border-bottom: 3px solid #12E7D4;
+input {
+  border: none !important;
+  border-bottom: 3px solid #ffffff !important;
+  background: none !important;
+  color: #ffffff !important;
 }
 
-.admin input:focus {
+input:focus {
   background: none;
-  color: #12E7D4;
   box-shadow: none !important;
 }
 
-.admin input:read-only {
+input:read-only {
   background-color: lightgrey;
   color: #060240;
 }
 
-/* Modal */
-.admin .modal {
-  background-color: rgba(0, 0, 0, 0.3);
-  overflow: auto;
+.modal {
   z-index: 9999;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
-.admin .modal .close {
-  color: #12E7D4;
+.close {
+  color: #ffffff !important;
 }
 
-.admin .modal .modal-content {
-  background: #060240 !important;
-  border: 2px solid #12E7D4;
+.modal-content {
+  background: #1d2c44 !important;
 }
 
-.admin .modal .modal-title {
-  color: #12E7D4;
+.modal-title {
+  color: #ffffff;
 }
 
-.admin .modal label {
-  color: #12E7D4;
+label {
+  color: #ffffff;
 }
 
-.modal input {
-  background: none;
-  color: #12E7D4;
-  border: none;
-  border-bottom: 3px solid #12E7D4;
-}
-
-.admin .modal .create-button {
-  background: #12E7D4;
-  color: #060240;
-}
-
-.admin .modal .update-button {
-  background: #12E7D4;
-  color: #060240;
-}
-
-/* Multiselect */
-.admin .multiselect__tags {
-  background: #12E7D4;
-}
-
-.admin .multiselect__placeholder {
-  color: #060240;
-}
-
-.admin .multiselect__content-wrapper {
-  background: #12E7D4;
-}
-
-.admin .multiselect__option--highlight {
-  background: #060240;
-  color: #12E7D4;
-}
-
-.admin .multiselect__option--highlight::after {
-  background: #060240;
-}
-
-.admin .multiselect__tag {
-  background: #060240;
-}
-
-.admin .multiselect__tag-icon:hover {
-  background: #12E7D4;
-}
-
-/* Table */
-.table thead {
-  background: #060240;
-  color: #12E7D4;
-}
-
-.table tbody {
-  background: #12E7D4;
-  color: #060240;
-}
-
-.table button {
+.modal button {
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
-  width: 100px;
-  margin: 2px;
 }
 
-.table .edit {
+.create-button {
+  background: #08162d;
+  color: #ffffff;
+}
+
+.update-button {
+  background: #08162d;
+  color: #ffffff;
+}
+
+.multiselect__tags {
+  background: #ffffff;
+}
+
+.multiselect__placeholder {
+  color: #10294e;
+}
+
+.multiselect__content-wrapper {
+  background: #ffffff;
+}
+
+.multiselect__option--selected {
+  background: #10294e;
+  color: #ffffff;
+}
+
+.multiselect__option--highlight {
+  background: #405471;
+  color: #ffffff;
+}
+
+.multiselect__option--highlight::after {
+  background: #405471;
+}
+
+.multiselect__tag {
+  background: #10294e;
+}
+
+.multiselect__tag-icon:hover {
   background: #060240;
-  color: #12E7D4;
-}
-
-.table .delete {
-  background: red;
-  color: #12E7D4;
 }
 
 .table {
   text-align: center;
 }
 
-.table .actions {
+thead {
+  background: #1d2c44;
+  color: #ffffff;
+}
+
+tbody {
+  background: #ffffff;
+  color: #060240;
+  font-weight: 600;
+}
+
+.table button {
+  width: 100px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  margin: 2px;
+}
+
+.edit {
+  background: #1d2c44;
+  color: #ffffff;
+}
+
+.delete {
+  background: red;
+  color: #ffffff;
+}
+
+.actions {
   text-align: right;
 }
 
-/* Pagination */
-.admin .pagination > .active > a {
-  background: #060240;
-  color: #12E7D4 !important;
+.pagination > .active > a {
+  background: #08162d;
+  color: #ffffff !important;
 }
 
-.admin .pagination > li > a {
-  background: #12E7D4;
-  color: #060240 !important;
+.pagination > li > a {
   display: block;
   padding: 6px 12px;
-  outline: none;
+  background: #2e415e;
+  color: #ffffff !important;
   text-decoration: none;
+  outline: none;
 }
 
-.admin .pagination > .active > a:hover {
+.pagination > .active > a:hover {
   font-weight: bold;
 }
 
 @media (max-width: 991px) {
   .main {
-    margin-top: 145px;
     margin-left: 0;
+    margin-top: 145px;
   }
 }
 </style>

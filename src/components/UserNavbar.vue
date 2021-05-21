@@ -22,10 +22,10 @@
       </ul>
       <ul v-if="loggedIn" class="nav navbar-nav navbar-right">
         <li class="nav-item">
-          <router-link tag="button" class="profile-button btn btn-secondary" to="/profile">Profile</router-link>
+          <router-link tag="button" class="profile-button" to="/profile">Profile</router-link>
         </li>
         <li class="nav-item">
-          <button class="btn btn-light" @click.prevent="LogoutRequest">Logout</button>
+          <button @click.prevent="LogoutRequest" class="logout">Logout</button>
         </li>
       </ul>
     </div>
@@ -49,16 +49,29 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .navbar {
-  background: #060240;
-  border-bottom: 1px solid white;
-  margin-bottom: 50px;
+  background: #08162d;
 }
-.navbar a {
-  color: #12E7D4!important;
+
+a {
+  color: #ffffff !important;
 }
-.navbar .profile-button {
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+}
+
+.profile-button {
+  background: #314666;
+  color: #ffffff;
   margin-right: 5px;
+}
+
+.logout {
+  background: #ffffff;
+  color: #314666;
 }
 </style>

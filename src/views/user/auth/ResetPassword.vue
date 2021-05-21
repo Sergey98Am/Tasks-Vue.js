@@ -46,10 +46,14 @@
               <button type="submit" class="submit-register btn btn-primary" @click="resetPasswordService">Reset</button>
             </div>
           </div>
+          <div v-if="isLoading" class="loader">
+            <div class="spinner-border text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <circle-spin v-show="isLoading"></circle-spin>
   </div>
 </template>
 
@@ -77,54 +81,50 @@ export default {
 }
 </script>
 
-<style>
-.reset-password .sk-fading-circle {
-  margin: 50px auto !important;
+<style scoped>
+.loader {
+  margin: 10px 0;
+  text-align: center;
 }
 
 .reset-password {
-  margin-top: 55px;
-  padding: 50px 0;
   overflow: auto;
   height: calc(100% - 55px);
+  padding: 50px 0;
+  margin-top: 55px;
 }
 
-.reset-password .reset-password-form {
+.reset-password-form {
   padding: 20px;
-  border-radius: 15px;
-  background: #12E7D4;
-  border: 1px solid #060240;
+  border-radius: 10px;
+  background: #405471;
 }
 
-.reset-password .reset-password-form h3 {
-  background: #060240;
-  color: #12E7D4;
+h3 {
   padding: 10px;
-  margin-bottom: 20px;
   border-radius: 10px;
+  margin-bottom: 20px;
+  background: #10294e;
+  color: #ffffff;
   text-decoration: underline;
 }
 
-.reset-password label {
-  color: #060240;
+label {
+  color: #ffffff;
 }
 
-.reset-password input {
-  background: none;
+input {
   border: none;
-  border-bottom: 3px solid #060240;
+  border-bottom: 3px solid #ffffff;
+  background: none;
+  color: #ffffff !important;
 }
 
-.reset-password .submit-register {
-  background: #060240;
-}
-
-.reset-password h1 {
-  text-align: center;
-}
-
-.reset-password h4 {
-  text-align: center;
-  color: #060240;
+.submit-register {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #08162d;
+  color: #ffffff;
 }
 </style>

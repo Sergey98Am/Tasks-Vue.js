@@ -4,40 +4,47 @@
       <div class="row">
         <div class="col-12">
           <h1 class="title"><i><b>Permissions</b></i></h1>
-          <div v-if="$can('permission_create')" class="create">
-            <button type="button" @click="newModal">
-              Create New Permission
-            </button>
+          <div v-if="isLoading" class="loading">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
           </div>
-          <table class="table">
-            <thead>
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col" class="actions">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="permission in displayedPermissions" :key="permission.id">
-              <td>{{ permission.title }}</td>
-              <td class="actions">
-                <button v-if="$can('permission_edit')" type="button" class="edit" @click="editModal(permission)">
-                  <font-awesome-icon :icon="['fas', 'edit']"/>
-                  Edit
-                </button>
-                <button v-if="$can('permission_delete')" class="delete"
-                        @click="deletePermission($event.target, permission.id)">
-                  <div class="spinner-border text-light delete-loader" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                  <span class="icon">
+          <div v-else>
+            <div v-if="$can('permission_create')" class="create">
+              <button type="button" @click="newModal">
+                Create New Permission
+              </button>
+            </div>
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col" class="actions">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="permission in displayedPermissions" :key="permission.id">
+                <td>{{ permission.title }}</td>
+                <td class="actions">
+                  <button v-if="$can('permission_edit')" type="button" class="edit" @click="editModal(permission)">
+                    <font-awesome-icon :icon="['fas', 'edit']"/>
+                    Edit
+                  </button>
+                  <button v-if="$can('permission_delete')" class="delete"
+                          @click="deletePermission($event.target, permission.id)">
+                    <div class="spinner-border text-light delete-loader" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <span class="icon">
                     <font-awesome-icon :icon="['fas', 'trash']"/>
                   </span>
-                  Delete
-                </button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="col-12">
           <paginate v-model="page" :page-count="pageCount" :page-range="3"
@@ -77,20 +84,20 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="close-button btn btn-secondary" @click="closeModal">Close</button>
-                <button v-if="editMode" class="update-button btn btn-dark" @click="updatePermission($event.target)">
+                <button v-if="editMode" class="update-button" @click="updatePermission($event.target)">
                   <span class="icon">
                     <font-awesome-icon :icon="['fas', 'pen-alt']"/>
                   </span>
-                  <div class="spinner-border text-dark edit-loader" role="status">
+                  <div class="spinner-border text-light edit-loader" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
                   Update
                 </button>
-                <button v-else class="create-button btn btn-dark" @click="storePermission($event.target)">
+                <button v-else class="create-button" @click="storePermission($event.target)">
                   <span class="icon">
                     <font-awesome-icon :icon="['fas', 'plus']"/>
                   </span>
-                  <div class="spinner-border text-dark create-loader" role="status">
+                  <div class="spinner-border text-light create-loader" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
                   Create
@@ -102,7 +109,6 @@
       </div>
     </transition>
     <!-- End Modal -->
-    <circle-spin v-show="isLoading"></circle-spin>
   </div>
 </template>
 
@@ -172,3 +178,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.loading {
+  min-height: 80vh;
+}
+</style>

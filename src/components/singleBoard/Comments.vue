@@ -184,17 +184,17 @@ export default {
 }
 
 .write-comment button {
-  background: #060240;
-  color: #12E7D4;
-  margin-top: 10px;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
+  margin-top: 10px;
+  background: #405471;
+  color: #ffffff;
 }
 
 .comment-list {
-  max-height: 300px;
   overflow: auto;
+  max-height: 300px;
 }
 
 .comment-list::-webkit-scrollbar {
@@ -214,7 +214,7 @@ export default {
 }
 
 .comment span {
-  color: #060240;
+  color: #ffffff;
 }
 
 .comment .comment-container {
@@ -223,14 +223,14 @@ export default {
 }
 
 .comment .comment-container p {
-  background: white;
-  color: #060240;
-  padding: 10px;
-  border-radius: 20px;
-  font-size: 13px;
-  margin: 0;
   display: inline-block;
   max-width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 0;
+  background: white;
+  color: #060240;
+  font-size: 13px;
   word-break: break-word;
 }
 
@@ -239,11 +239,11 @@ export default {
 }
 
 .comment .typing-mode button {
-  background: white;
-  color: #060240;
   border: none;
   border-radius: 5px;
   margin-top: 5px;
+  background: white;
+  color: #060240;
 }
 
 .comment .date {
@@ -252,12 +252,13 @@ export default {
 }
 
 .comment .items button {
-  background: #060240;
-  color: #12E7D4;
-  font-size: 13px;
   border: none;
   border-radius: 10px;
   margin-top: 5px;
+  background: #ffffff;
+  color: #10294e;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 .comment .items button:first-child {

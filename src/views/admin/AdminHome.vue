@@ -11,11 +11,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 10px;
 }
 
 .img-div img {
-  width: 50%;
+  width: 35%;
   object-fit: cover;
 }
 </style>

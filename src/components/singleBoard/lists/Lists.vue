@@ -1,11 +1,10 @@
 <template>
-  <div class="board-content">
-    <slot name="add-list"></slot>
-    <div class="board-canvas">
-      <draggable :list="lists" :options="{group:'lists'}" v-bind="dragOptions" style="height: 100%"
+    <div class="lists">
+      <draggable :list="lists" :options="{group:'lists'}" v-bind="dragOptions"
+                 style="height: 100%; display: inline-block"
                  @change="sortList">
         <transition-group type="transition" name="flip-list">
-          <div class="list-wrapper" v-for="list in lists" :key="list.id">
+          <div @drag="a($event)" class="list-wrapper" v-for="list in lists" :key="list.id">
             <div class="list-content">
               <div class="list-header">
                 <slot name="update-list" :list="list"></slot>
@@ -18,8 +17,8 @@
           </div>
         </transition-group>
       </draggable>
+      <slot name="add-list"></slot>
     </div>
-  </div>
 </template>
 
 <script>
@@ -41,6 +40,7 @@ export default {
   computed: {
     dragOptions () {
       return {
+        animation: 200,
         disabled: false,
         ghostClass: 'ghost',
         chosenClass: 'chosen',
@@ -49,6 +49,10 @@ export default {
     }
   },
   methods: {
+    a (event) {
+      event.dataTransfer.clearData()
+      console.log(event.dataTransfer)
+    },
     // Sort
     sortList () {
       listService.sort(this)
@@ -58,31 +62,24 @@ export default {
 </script>
 
 <style scoped>
+/* Draggable */
 .flip-list-move {
-  transition: transform 0.5s;
+  transition: transform .5s;
 }
 
 .ghost {
   opacity: 0;
 }
 
-.drag {
-  z-index: 1;
-}
-
-.board-content {
-  position: relative;
-  height: 100%;
-}
-
-.board-canvas {
+.lists {
   position: absolute;
+  left: 0;
+  top: 15px;
+  right: 0;
+  bottom: 15px;
+  display: flex;
   overflow-x: auto;
   overflow-y: hidden;
-  left: 0;
-  top: 65px;
-  right: 0;
-  bottom: 0;
   padding: 5px;
   white-space: nowrap;
 }
@@ -90,37 +87,35 @@ export default {
 .list-wrapper {
   display: inline-block;
   vertical-align: middle;
-  white-space: normal;
   width: 250px;
-  margin: 0 5px;
   height: 100%;
   border-radius: 5px;
+  margin: 0 10px;
+  white-space: normal;
 }
 
 .list-content {
-  background-color: #eaeaea;
-  max-height: 100%;
-  border-radius: 20px;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  max-height: 100%;
+  border-radius: 5px;
+  background: #10294e;
+  box-shadow: rgba(222, 219, 219, 0.43) 0px 2px 8px;
 }
 
 .list-header {
-  background: #12E7D4;
-  color: #060240;
+  padding: 10px;
   font-weight: 700;
-  padding: 16px;
 }
 
 .list-footer {
   display: flex;
   justify-content: center;
   align-items: start;
-  background: #12E7D4;
+  padding: 8px;
   color: #060240;
   font-weight: 400;
   text-align: left;
-  padding: 11px;
 }
 </style>

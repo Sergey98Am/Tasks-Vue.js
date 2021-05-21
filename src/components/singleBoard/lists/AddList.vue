@@ -61,56 +61,51 @@ export default {
 }
 </script>
 
-<style scoped >
+<style scoped>
 .add-list {
-  padding: 10px 0;
-  display: flex;
-  justify-content: center;
-  vertical-align: top;
+  display: inline-block;
 }
 
-.add-list button {
+button {
   width: 50px;
-  background: #12E7D4;
-  color: #060240;
-  border: 2px solid #060240;
-  font-weight: 400;
   padding: 10px;
-  border-radius: 0.3rem;
-  transition: background-color 150ms;
+  border: 1px solid #ffffff;
+  background: #10294e;
+  color: #ffffff;
+  font-weight: 400;
   text-align: center;
-  margin: 2px;
+  transition: background-color 150ms;
 }
 
-.add-list .typing-mode {
+.typing-mode {
   display: none;
   border-radius: 10px;
 }
 
-.add-list .typing-mode input {
-  background: none;
-  color: #060240;
-  font-weight: 400;
+input {
+  width: 250px;
+  padding: 10px;
   border: none;
   border-bottom: 2px solid #060240;
-  padding: 10px;
   border-radius: 0.3rem;
+  background: none;
+  color: #ffffff;
+  font-weight: 400;
   transition: background-color 150ms;
-  width: 250px;
+}
+
+input::placeholder {
+  color: #ffffff;
 }
 
 .add-list .button-mode {
   display: none;
 }
 
-.add-list .button-mode .only-button {
-  padding: 10px 5px;
-  background-color: #12E7D4;
-  color: #060240;
-  border: 2px solid #060240;
+.button-mode .only-button {
   width: 360px;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
+  padding: 10px 5px;
+  border-radius: 5px;
 }
 
 .active {

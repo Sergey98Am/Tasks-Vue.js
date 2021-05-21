@@ -18,10 +18,12 @@ function serverSideValidation (self, error) {
 }
 
 function get (self) {
+  self.isLoading = true
   authAxios.get('/boards').then(response => {
+    self.isLoading = false
     self.boards = response.data.boards
-  }).catch(error => {
-    console.log(error)
+  }).catch(() => {
+    self.isLoading = false
   })
 }
 
@@ -80,14 +82,24 @@ function destroy (target, id, self) {
 }
 
 function singleBoard (self) {
+  // Loader
+  self.$refs['board-title'].style.display = 'none'
+  self.$refs['board-title-loader'].style.display = ''
   self.isLoading = true
+  // End Loader
   authAxios.get('/single-board/board/' + self.$route.params.id).then(response => {
+    // Loader
+    self.$refs['board-title'].style.display = ''
+    self.$refs['board-title-loader'].style.display = 'none'
     self.isLoading = false
+    // End Loader
     self.board_title = response.data.board.title
     self.lists = response.data.board.lists
     self.board_users = response.data.board.users
     // self.board = response.data.board
   }).catch(() => {
+    self.$refs['board-title'].style.display = ''
+    self.$refs['board-title-loader'].style.display = 'none'
     self.isLoading = false
   })
 }

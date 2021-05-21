@@ -9,7 +9,7 @@ function store (self, target) {
       self.list.cards.push(newCard)
       self.card_title = ''
       setTimeout(function () {
-        let container = target.closest('.list-wrapper').querySelector('.list-cards')
+        let container = target.closest('.list-wrapper').querySelector('.list-cards ul')
         container.scrollTop = container.scrollHeight
       }, 100)
       sort(self, self.list)

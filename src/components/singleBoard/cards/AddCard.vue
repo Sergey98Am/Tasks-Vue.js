@@ -69,11 +69,16 @@ export default {
 </script>
 
 <style scoped>
+.add-card {
+  display: inline-block;
+  padding: 5px 10px;
+}
+
 .spinner-border {
+  display: none;
   width: 15px;
   height: 15px;
   color: #060240;
-  display: none;
 }
 
 .icon {
@@ -81,11 +86,11 @@ export default {
 }
 
 input {
-  background: none;
-  border: none;
-  border-bottom: 1px solid #060240;
-  color: #060240;
   width: 100%;
+  border: none;
+  border-bottom: 1px solid #ffffff;
+  background: none;
+  color: #ffffff;
 }
 
 .typing-mode {
@@ -94,9 +99,9 @@ input {
 }
 
 .typing-mode button {
-  background: #12E7D4;
-  border: 1px solid #060240;
-  color: #060240;
+  border: 1px solid #10294e;
+  background: #ffffff;
+  color: #10294e;
 }
 
 .button-mode {
@@ -104,16 +109,12 @@ input {
 }
 
 .button-mode button {
-  background: #12E7D4;
-  color: #060240;
-  padding: 5px 10px;
-  font-size: 14px;
-  border: 1px solid #060240;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
   width: 100%;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: white;
+  color: #10294e;
+  font-size: 14px;
 }
 
 .active {

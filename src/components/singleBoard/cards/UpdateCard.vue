@@ -68,21 +68,21 @@ export default {
 <style scoped>
 .editing-target {
   position: absolute;
-  cursor: pointer;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
+  cursor: pointer;
 }
 
 .is-hidden {
   display: none;
 }
 .spinner-border {
+  display: none;
   width: 15px;
   height: 15px;
   color: #060240;
-  display: none;
 }
 
 .icon {
@@ -94,21 +94,19 @@ export default {
 }
 
 .typing-mode button {
-  background: #12E7D4;
   border: 1px solid #060240;
+  background: #12E7D4;
 }
 
 .typing-mode textarea {
-  resize: none;
-  background: none;
-  border: none;
-  width: 100%;
-  /* box-sizing: padding-box; */
   overflow: hidden;
-  /* demo only: */
-  font-size: 14px;
-  /*display:block;*/
+  width: 100%;
+  border: none;
   border-radius: 10px;
+  background: none;
+  color: #10294e;
+  font-size: 14px;
+  resize: none;
 }
 
 .typing-mode {
