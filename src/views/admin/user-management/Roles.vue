@@ -4,10 +4,17 @@
       <div class="row">
         <div class="col-12">
           <h1 class="title"><i><b>Roles</b></i></h1>
-          <div v-if="$can('role_create')" class="create">
-            <button type="button" @click="newModal">
-              Create New Role
-            </button>
+          <div v-if="isLoading" class="loading">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div v-else>
+            <div v-if="$can('role_create')" class="create">
+              <button type="button" @click="newModal">
+                Create New Role
+              </button>
+            </div>
           </div>
           <table class="table">
             <thead>
@@ -20,7 +27,7 @@
             <tbody>
             <tr v-for="role in displayedRoles" :key="role.id">
               <td>{{ role.title }}</td>
-              <td class="permission">
+              <td class="permissions">
                 <span v-for="permission in role.permissions" :key="permission.id">
                   {{ permission.title }}
                 </span>
@@ -94,7 +101,7 @@
                   <span class="icon">
                     <font-awesome-icon :icon="['fas', 'pen-alt']"/>
                   </span>
-                  <div class="spinner-border text-dark edit-loader" role="status">
+                  <div class="spinner-border text-light edit-loader" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
                   Update
@@ -103,7 +110,7 @@
                   <span class="icon">
                     <font-awesome-icon :icon="['fas', 'plus']"/>
                   </span>
-                  <div class="spinner-border text-dark create-loader" role="status">
+                  <div class="spinner-border text-light create-loader" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
                   Create
@@ -190,14 +197,18 @@ export default {
 }
 </script>
 
-<style>
-.permission span {
-  background: #060240;
-  color: #12E7D4;
+<style scoped>
+.loading {
+  min-height: 80vh;
+}
+
+.permissions span {
   display: inline-block;
-  font-size: 13px;
   padding: 5px 10px;
-  margin: 3px;
   border-radius: 20px;
+  margin: 3px;
+  background: #1d2c44;
+  color: #ffffff;
+  font-size: 13px;
 }
 </style>

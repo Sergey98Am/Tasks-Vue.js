@@ -22,8 +22,8 @@ export default {
 
 <style>
 button {
-  background: none;
   border: none;
+  background: none;
   color: #060240;
 }
 </style>

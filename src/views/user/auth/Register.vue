@@ -74,7 +74,11 @@
               </button>
             </div>
           </div>
-          <circle-spin v-show="isLoading"></circle-spin>
+          <div v-if="isLoading" class="loader">
+            <div class="spinner-border text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
         </div>
         <div class="col-6 offset-3" v-else>
           <div class="register-form">
@@ -126,83 +130,77 @@ export default {
 }
 </script>
 
-<style>
-.sk-fading-circle {
-  margin: 30px auto!important;
+<style scoped>
+.loader {
+  margin: 10px 0;
+  text-align: center;
 }
-.sk-circle::before {
-  background-color: #060240!important;
-}
+
 .register {
-  margin-top: 55px;
-  padding: 50px 0;
   overflow: auto;
   height: calc(100% - 55px);
+  padding: 50px 0;
+  margin-top: 55px;
 }
 
 .register-form {
   padding: 20px;
-  border-radius: 15px;
-  background: #12E7D4;
-  border: 1px solid #060240;
+  border-radius: 10px;
+  background: #405471;
 }
 
-.register-form label {
-  color: #060240;
+label {
+  color: #ffffff;
 }
 
-.register-form input {
-  background: none;
+input {
   border: none;
-  border-bottom: 3px solid #060240;
+  border-bottom: 3px solid #ffffff;
+  background: none;
+  color: #ffffff !important;
 }
 
-.register-form .submit-register {
-  background: #060240;
-  color: #12E7D4;
+.submit-register {
   padding: 10px;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
+  background: #08162d;
+  color: #ffffff;
 }
 
-.register-form .forgot-password {
-  color: #060240;
+.forgot-password {
+  margin-left: 10px;
+  color: #ffffff;
   text-decoration: none;
-  margin-left: 15px;
 }
 
-.register-form .social h5 {
-  color: #060240;
-  font-style: italic;
-  font-weight: bolder;
+.social h5 {
   margin-top: 10px;
   margin-bottom: 10px;
+  color: #08162d;
+  font-style: italic;
+  font-weight: bolder;
 }
 
-.register-form .social button {
-  background: none;
+.social button {
+  padding: 5px;
   border: none;
   border-radius: 5px;
-  padding: 5px;
+  background: none;
   color: #060240;
 }
 
-.register-form .social button img {
+.social button img {
   width: 40px;
   height: 40px;
-  object-fit: cover;
 }
 
-.register-form .social button:first-child {
+.social button:first-child {
   margin-top: 10px !important;
   margin-right: 5px !important;
 }
-.register-form small {
+
+small {
   color: red;
-}
-.register-form input:focus {
-  background: none;
-  border-color: inherit!important;
-  box-shadow: none!important;
 }
 </style>

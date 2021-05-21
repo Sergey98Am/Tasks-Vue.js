@@ -1,7 +1,7 @@
 <template>
   <div class="profile">
     <div class="container">
-      <div class="row" v-if="userDetails">
+      <div class="row">
         <div class="col-8 offset-2">
           <div class="card personal-information">
             <div class="card-header"><h2>My Profile</h2></div>
@@ -65,7 +65,11 @@
               </div>
             </div>
           </div>
-          <circle-spin v-show="isLoading"></circle-spin>
+         <div v-if="isLoading" class="loader">
+           <div class="spinner-border text-secondary" role="status">
+             <span class="sr-only">Loading...</span>
+           </div>
+         </div>
         </div>
       </div>
     </div>
@@ -102,69 +106,62 @@ export default {
 }
 </script>
 
-<style>
-.sk-fading-circle {
-  margin: 30px auto !important;
-}
-
-.sk-circle::before {
-  background-color: #060240 !important;
+<style scoped>
+.loader {
+  margin: 10px 0;
+  text-align: center;
 }
 
 .profile {
-  margin-top: 55px;
-  padding: 50px 0;
   overflow: auto;
   height: calc(100% - 55px);
+  padding: 50px 0;
+  margin-top: 55px;
 }
 
-.profile .card {
-  background: #12E7D4;
-  color: #060240;
-  /*border: 1px solid #060240;*/
-  border-top-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+.card {
   overflow: hidden;
+  border-radius: 10px;
+  background: #405471;
+  color: #060240;
 }
 
-.profile .card-header {
-  background: #060240;
-  color: #12E7D4;
+.card-header {
+  background: #ffffff;
+  color: #10294e;
 }
 
-.profile .card-header h2 {
+.card-header h2 {
   margin: 0;
 }
 
-.profile label {
-  color: #060240;
+label {
+  color: #08162d;
 }
 
-.profile input {
-  background: none;
+input {
   border: none;
-  border-bottom: 3px solid #060240;
-}
-
-.profile input:focus {
+  border-bottom: 3px solid #ffffff;
   background: none;
-  border-color: inherit !important;
-  box-shadow: none !important;
+  color: #ffffff;
 }
 
-.profile input:read-only {
-  background-color: lightgrey;
+input:focus {
+  color: #ffffff;
+}
+input:read-only {
+  background-color: #10294e;
 }
 
-.profile .personal-information button {
-  background: #060240;
-  color: #12E7D4;
+.personal-information button {
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px;
+  background: #ffffff;
+  color: #10294e;
 }
 
-.profile .message {
+.message {
   display: none;
 }
 </style>

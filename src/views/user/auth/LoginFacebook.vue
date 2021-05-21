@@ -19,12 +19,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .loginFacebook {
   padding-top: 55px;
 }
-.loginFacebook h2 {
-  color: #060240;
+h2 {
+  color: #ffffff;
   margin: 15px;
 }
 </style>

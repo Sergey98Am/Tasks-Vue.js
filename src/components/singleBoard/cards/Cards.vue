@@ -1,27 +1,29 @@
 <template>
-  <ul class="list-cards">
-    <draggable :list="list.cards" :options="{group:'cards'}" v-bind="dragOptions"
-               @add="moveCardToAnotherList($event)" @change="sortCard()">
-      <transition-group class="transition" type="transition" name="flip-list">
-        <li v-for="card in list.cards" :key="card.id" :cardId="card.id">
-          <div class="actions">
-            <slot name="update-card" :list="list" :card="card"></slot>
-            <button @click="$emit('event', list.id, card)">
-              <font-awesome-icon :icon="['fas', 'door-open']"/>
-            </button>
-            <button @click="$emit('event_triggered', card.id)">
-              <font-awesome-icon :icon="['fas', 'comment-alt']"/>
-            </button>
-            <slot name="delete-card" :list="list" :card="card"></slot>
-          </div>
-          <div class="members">
-            <p v-for="member in card.members" :key="member.id">{{ member.name }}</p>
-          </div>
-        </li>
-      </transition-group>
-    </draggable>
+  <div class="list-cards">
+    <ul>
+      <draggable :list="list.cards" :options="{group:'cards'}" v-bind="dragOptions"
+                 @add="moveCardToAnotherList($event)" @change="sortCard()">
+        <transition-group class="transition" type="transition" name="flip-list">
+          <li v-for="card in list.cards" :key="card.id" :cardId="card.id">
+            <div class="actions">
+              <slot name="update-card" :list="list" :card="card"></slot>
+              <button @click="$emit('event', list.id, card)">
+                <font-awesome-icon :icon="['fas', 'door-open']"/>
+              </button>
+              <button @click="$emit('event_triggered', card.id)">
+                <font-awesome-icon :icon="['fas', 'comment-alt']"/>
+              </button>
+              <slot name="delete-card" :list="list" :card="card"></slot>
+            </div>
+            <div class="members">
+              <p v-for="member in card.members" :key="member.id">{{ member.name_initials }}</p>
+            </div>
+          </li>
+        </transition-group>
+      </draggable>
+    </ul>
     <slot name="add-card" :list="list"></slot>
-  </ul>
+  </div>
 </template>
 
 <script>
@@ -49,15 +51,11 @@ export default {
 
 <style scoped>
 .flip-list-move {
-  transition: transform 0.5s;
+  transition: transform .6s;
 }
 
 .ghost {
   opacity: 0;
-}
-
-.drag {
-  z-index: 1;
 }
 
 .actions {
@@ -71,37 +69,62 @@ export default {
 }
 
 .list-cards {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+ul {
+  margin: 0;
   padding: 9px;
   overflow-y: auto;
 }
 
-.list-cards .transition {
+ul .transition {
   display: block;
   height: auto;
 }
 
-.list-cards::-webkit-scrollbar {
+ul::-webkit-scrollbar {
   width: 20px;
 }
 
-.list-cards::-webkit-scrollbar-thumb {
+ul::-webkit-scrollbar-thumb {
   border-right: 10px solid #bfc4ce;
 }
 
-.list-cards li {
-  background: #e0dede;
-  color: #261473;
+li {
+  background: #bfcbe2;
+  /*color: #10294e;*/
   list-style: none;
   font-size: 14px;
   font-weight: 600;
   padding: 5px 10px;
-  border-bottom: 2px solid #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
   cursor: pointer;
 }
 
-.list-cards li:hover {
-  background-color: #eee;
+li:last-child {
+  margin: 0;
+}
+
+.members {
+  margin-top: 5px;
+  display: flex;
+}
+
+.members p {
+  background: #10294e;
+  color: #ffffff;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  margin: 2px;
+  padding: 5px;
+  border-radius: 50%;
 }
 </style>

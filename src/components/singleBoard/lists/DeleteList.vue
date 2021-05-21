@@ -24,9 +24,9 @@ export default {
 
 <style scoped>
 .delete-list button {
-  background: #060240;
-  color: #12E7D4;
-  border: 1px solid #21e3d1;
+  border: 1px solid #ffffff;
   border-radius: 5px;
+  background: #10294e;
+  color: #ffffff;
 }
 </style>

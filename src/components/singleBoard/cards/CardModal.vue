@@ -18,12 +18,12 @@
                              :custom-label="opt => board_users.find(user => user.id === opt).name"
                              v-model="selectedMembers"></multiselect>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="close-button btn btn-secondary" @click="closeModal">Close</button>
-                <button class="create-button btn btn-dark" @click="addOrRemoveMembers">
-                  Add
-                </button>
-              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close-button btn btn-secondary" @click="closeModal">Close</button>
+              <button class="create-button btn btn-dark" @click="addOrRemoveMembers">
+                Add
+              </button>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ export default {
 <style>
 /* Multiselect */
 .multiselect__tags {
-  background: #060240;
+  background: #ffffff;
 }
 
 .multiselect__placeholder {
@@ -80,23 +80,34 @@ export default {
 }
 
 .multiselect__content-wrapper {
-  background: #060240;
+  background: #ffffff;
+}
+
+.multiselect__option--selected {
+  background: #10294e;
+  color: #ffffff;
 }
 
 .multiselect__option--highlight {
-  background: #12E7D4;
-  color: #060240;
+  background: #405471;
+  color: #ffffff;
 }
 
 .multiselect__option--highlight::after {
-  background: #12E7D4;
+  background: #405471;
 }
 
 .multiselect__tag {
-  background: #12E7D4;
+  background: #10294e;
 }
 
 .multiselect__tag-icon:hover {
   background: #060240;
+}
+
+.create-button {
+  border: none;
+  background: #445874 !important;
+  color: #ffffff !important;
 }
 </style>

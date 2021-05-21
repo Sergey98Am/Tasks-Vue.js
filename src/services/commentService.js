@@ -9,32 +9,36 @@ function get (self) {
 }
 
 function addComment (self) {
-  let formData = new FormData()
-  formData.append('comment', self.comment)
-  authAxios.post('/cards/' + self.cardId + '/comments', formData).then(response => {
-    self.comment = ''
-    let newComment = response.data.comment
-    self.cardComments.unshift(newComment)
-    let container = document.querySelector('.comment-list')
-    container.scrollTop = 0
-  }).catch(error => {
-    console.log(error)
-  })
+  if (self.comment) {
+    let formData = new FormData()
+    formData.append('comment', self.comment)
+    authAxios.post('/cards/' + self.cardId + '/comments', formData).then(response => {
+      self.comment = ''
+      let newComment = response.data.comment
+      self.cardComments.unshift(newComment)
+      let container = document.querySelector('.comment-list')
+      container.scrollTop = 0
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 }
 
 function addReply (self, parentComment) {
-  let formData = new FormData()
-  formData.append('comment', self.comment)
-  formData.append('parent_id', parentComment.id)
-  formData.append('comment', self.comment_reply)
-  authAxios.post('/cards/' + self.cardId + '/comments/' + parentComment.id + '/replies', formData).then(response => {
-    self.comment_reply = ''
-    let newComment = response.data.comment
-    parentComment.replies.push(newComment)
-    self.commentId = ''
-  }).catch(error => {
-    console.log(error)
-  })
+  if (self.comment_reply) {
+    let formData = new FormData()
+    formData.append('comment', self.comment)
+    formData.append('parent_id', parentComment.id)
+    formData.append('comment', self.comment_reply)
+    authAxios.post('/cards/' + self.cardId + '/comments/' + parentComment.id + '/replies', formData).then(response => {
+      self.comment_reply = ''
+      let newComment = response.data.comment
+      parentComment.replies.push(newComment)
+      self.commentId = ''
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 }
 
 function update (self, comment) {

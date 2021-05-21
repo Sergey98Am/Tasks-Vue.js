@@ -1,33 +1,13 @@
 import authAxios from '../../config/authAxios'
 
-function validation () {
-  return {
-    email: {
-      required: true,
-      email: true
-    }
-  }
-}
-
-function serverSideValidation (self, error) {
-  const data = error.response.data
-  if (data.error) {
-    if (data.error.email) {
-      self.$validator.errors.add({field: 'email', msg: data.error.email[0]})
-    }
-  }
-}
-
 function invite (self) {
-  self.$validator.validate('email').then((result) => {
-    if (result) {
-      authAxios.post('invitation/boards/' + self.$route.params.id, {email: self.email}).then(response => {
-        self.email = ''
-      }).catch(error => {
-        serverSideValidation(self, error)
-      })
-    }
-  })
+  if (self.email) {
+    authAxios.post('invitation/boards/' + self.$route.params.id, {email: self.email}).then(response => {
+      self.email = ''
+    }).catch(() => {
+      //
+    })
+  }
 }
 
 function confirmInvitation (self) {
@@ -42,8 +22,6 @@ function confirmInvitation (self) {
 }
 
 export {
-  validation,
-  serverSideValidation,
   invite,
   confirmInvitation
 }

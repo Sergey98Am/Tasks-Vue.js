@@ -14,60 +14,71 @@ export default {
 </script>
 
 <style>
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
 /* Modal */
+.user {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../assets/images/background.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+}
 
-.user .modal {
-  background-color: rgba(0, 0, 0, 0.3);
+.modal {
   overflow: auto;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
-.user .modal .modal-content {
-  background: #12E7D4!important;
+.modal-content {
+  background: #10294e !important;
 }
 
-.user .modal .modal-title {
-  color: #060240;
+.modal-title {
+  color: #ffffff;
 }
 
-.user .modal label {
-  color: #060240;
+.modal label {
+  color: #ffffff;
 }
 
-.user .modal input {
-  background: none;
+.modal input {
   border: none;
-  border-bottom: 3px solid #060240;
+  border-bottom: 3px solid #ffffff;
+  background: none;
+  color: #ffffff;
 }
 
-.user .modal .create-button {
-  background: #060240;
-  color: #12E7D4;
+.create-button {
+  background: #405471;
+  color: #ffffff;
 }
 
-.user .modal .update-button {
-  background: #060240;
-  color: #12E7D4;
+.update-button {
+  background: #405471;
+  color: #ffffff;
 }
 
 /* Pagination */
-.user .pagination {
+.pagination {
   margin-top: 10px;
 }
-.user .pagination > .active > a {
-  color: white;
+
+.pagination > .active > a {
   background-color: grey;
+  color: white;
 }
 
-.user .pagination > li > a {
-  background: white;
+.pagination > li > a {
   display: block;
   padding: 6px 12px;
-  outline: none;
-  text-decoration: none;
+  background: white;
   color: inherit;
+  text-decoration: none;
+  outline: none;
 }
 
-.user .pagination > .active > a:hover {
+.pagination > .active > a:hover {
   color: white;
 }
 </style>

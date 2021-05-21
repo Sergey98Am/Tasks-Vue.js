@@ -80,96 +80,96 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* Menu */
-.admin .menu a {
+.menu a {
+  color: #ffffff !important;
   cursor: pointer;
-  color: #12E7D4 !important;
 }
 
 /* Navbar */
-.admin .menu .navbar {
-  background: #060240;
-  border-bottom: 1px solid white;
-  padding: 0 15px;
+.navbar {
   z-index: 9999;
+  padding: 0 15px;
+  border-bottom: 1px solid white;
   margin-bottom: 0;
+  background: #08162d;
 }
 
-.admin .menu .navbar-brand {
-  width: 250px;
-  color: #12E7D4;
+/*.navbar-brand {*/
+/*  width: 250px;*/
+/*  color: #12E7D4;*/
+/*}*/
+
+.navbar-toggler {
+  background: #ffffff;
 }
 
-.admin .menu .navbar-toggler {
-  background: #12E7D4;
-}
-
-.admin .menu .toggled {
+.toggled {
   left: 0 !important;
 }
 
 /* Sidebar */
-.admin .menu .sidebarMenu {
-  background: #060240;
+.sidebarMenu {
   position: fixed;
-  width: 250px;
-  transition: 0.5s;
-  padding: 48px 0 0;
+  z-index: 999;
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: 999;
+  width: 250px;
+  padding: 48px 0 0;
+  background: #08162d;
+  transition: 0.5s;
 }
 
-.admin .menu .sidebar-sticky {
-  text-align: start;
-  height: calc(100vh - 48px);
+.sidebar-sticky {
   overflow: auto;
+  height: calc(100vh - 48px);
+  text-align: start;
 }
 
-.admin .menu .sidebar-dropdown-menu {
+.sidebar-dropdown-menu {
   overflow: hidden;
-  transition: max-height .3s;
   max-height: 0;
+  transition: max-height .3s;
 }
 
-.admin .menu .sidebar-dropdown a {
-  width: 100%;
+.sidebar-dropdown a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
-.admin .menu .sidebar-dropdown-menu a {
+.sidebar-dropdown-menu a {
   padding: 5px 5px 5px 25px;
   text-decoration: none;
 }
 
-.admin .menu .toggled-on {
+.toggled-on {
   max-height: 10em;
 }
 
 @media (max-width: 991px) {
-  .admin .menu .navbar {
+  .navbar {
     padding: 10px !important;
   }
 
-  .admin .menu .navbar-menu {
+  .navbar-menu {
     flex-basis: 100%;
   }
 
-  .admin .menu .navbar-brand {
+  .navbar-brand {
     width: 200px;
   }
 
-  .admin .menu .sidebarMenu {
+  .sidebarMenu {
     width: 100%;
     left: -100%;
     padding: 100px 0 0;
   }
 
-  .admin .menu .main {
+  .main {
     margin-top: 145px;
     margin-left: 0;
   }

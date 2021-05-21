@@ -11,7 +11,12 @@
               </button>
             </div>
           </div>
-          <div class="col-2" v-for="board in displayedBoards" :key="board.id">
+          <div v-if='isLoading' class="col-12">
+            <div class="spinner-border text-secondary big-loader" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div class="col-2" v-else v-for="board in displayedBoards" :key="board.id">
             <div class="card text-center">
               <div class="card-body">
                 <h6 class="card-title">
@@ -52,7 +57,7 @@
               <form @submit.prevent="editMode ? updateBoard($event.target) : storeBoard($event.target)">
                 <div class="modal-body">
                   <div class="form-group">
-                    <label style="color: black" for="title">Title</label>
+                    <label for="title">Title</label>
                     <input type="text" class="form-control"
                            id="title"
                            name="title"
@@ -89,6 +94,7 @@ import * as Pagination from '../pagination'
 export default {
   data () {
     return {
+      isLoading: false,
       page: 1,
       pageCount: 0,
       pageSize: 4,
@@ -154,6 +160,14 @@ export default {
 </script>
 
 <style scoped>
+/* Loader */
+.big-loader {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 100px auto;
+}
+
 .home {
   padding: 50px 0;
 }
@@ -162,7 +176,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 50px;
 }
 
 .img-div img {
@@ -171,14 +185,14 @@ export default {
 }
 
 .boards {
-  margin-top: 55px;
   overflow: auto;
   height: calc(100% - 55px);
+  margin-top: 55px;
 }
 
 .boards .title {
+  color: #ffffff;
   text-align: center;
-  color: #060240;
 }
 
 .boards .create-board {
@@ -186,23 +200,23 @@ export default {
 }
 
 .boards .create-board button {
-  background: #12E7D4;
-  color: #060240;
-  border: 1px solid #060240;
-  border-radius: 10px;
   padding: 10px;
+  border: none;
+  border-radius: 5px;
   margin-bottom: 10px;
+  background: #405471;
+  color: #ffffff;
 }
 
 .boards .card {
-  background: #060240;
+  background: #24334b;
 }
 
 .boards .card h6 a {
-  color: #12E7D4;
   display: block;
+  overflow: hidden;
+  color: #ffffff;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
 }
 </style>

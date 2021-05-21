@@ -129,7 +129,7 @@
                   <span class="icon">
                     <font-awesome-icon :icon="['fas', 'pen-alt']"/>
                   </span>
-                  <div class="spinner-border text-dark edit-loader" role="status">
+                  <div class="spinner-border text-light edit-loader" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
                   Update
@@ -138,7 +138,7 @@
                   <span class="icon">
                     <font-awesome-icon :icon="['fas', 'plus']"/>
                   </span>
-                  <div class="spinner-border text-dark create-loader" role="status">
+                  <div class="spinner-border text-light create-loader" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
                   Create
@@ -232,3 +232,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.loading {
+  min-height: 80vh;
+}
+</style>

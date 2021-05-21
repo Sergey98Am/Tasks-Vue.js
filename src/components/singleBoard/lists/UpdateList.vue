@@ -64,10 +64,10 @@ export default {
 
 <style scoped>
 .spinner-border {
+  display: none;
   width: 15px;
   height: 15px;
   color: #12E7D4;
-  display: none;
 }
 
 .icon {
@@ -76,11 +76,11 @@ export default {
 
 .editing-target {
   position: absolute;
-  cursor: pointer;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
+  cursor: pointer;
 }
 
 .is-hidden {
@@ -91,7 +91,6 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  background: #060240;
   padding: 5px 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -99,15 +98,15 @@ export default {
   border-bottom-right-radius: 4px;
 }
 
-.update-list textarea {
-  resize: none;
-  background: none;
-  border: none;
-  color: #12E7D4;
-  width: 100%;
+textarea {
   overflow: hidden;
-  font-size: 14px;
+  width: 100%;
+  border: none;
   border-radius: 10px;
+  background: none;
+  color: #ffffff;
+  font-size: 14px;
+  resize: none;
 }
 
 .active {
