@@ -43,10 +43,10 @@ export default {
 }
 
 .modal input {
-  border: none;
-  border-bottom: 3px solid #ffffff;
-  background: none;
-  color: #ffffff;
+  border: none !important;
+  border-bottom: 3px solid #ffffff !important;
+  background: none !important;
+  color: #ffffff !important;
 }
 
 .create-button {

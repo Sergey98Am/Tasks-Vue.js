@@ -58,8 +58,8 @@ export default {
       this.card.title = this.card_title
       this.card_title = ''
     },
-    updateCard () {
-      cardService.update(this)
+    updateCard (event) {
+      cardService.update(this, event)
     }
   }
 }

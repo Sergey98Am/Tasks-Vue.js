@@ -1,10 +1,17 @@
 <template>
   <div class="list-cards">
-    <ul>
+    <div class="cards">
       <draggable :list="list.cards" :options="{group:'cards'}" v-bind="dragOptions"
                  @add="moveCardToAnotherList($event)" @change="sortCard()">
         <transition-group class="transition" type="transition" name="flip-list">
-          <li v-for="card in list.cards" :key="card.id" :cardId="card.id">
+          <div v-for="card in list.cards" :key="card.id" :cardId="card.id" class="card">
+            <div class="priority">
+              <span v-if="card.priority === 'Highest'" style="background: #eb5a46">{{ card.priority }}</span>
+              <span v-if="card.priority === 'Critical'" style="background: #ff9f1a">{{ card.priority }}</span>
+              <span v-if="card.priority === 'High'" style="background: #f2d600">{{ card.priority }}</span>
+              <span v-if="card.priority === 'Medium'" style="background: #61bd4f">{{ card.priority }}</span>
+              <span v-if="card.priority === 'Low'" style="background: #0079BF">{{ card.priority }}</span>
+            </div>
             <div class="actions">
               <slot name="update-card" :list="list" :card="card"></slot>
               <button @click="$emit('event', list.id, card)">
@@ -18,10 +25,10 @@
             <div class="members">
               <p v-for="member in card.members" :key="member.id">{{ member.name_initials }}</p>
             </div>
-          </li>
+          </div>
         </transition-group>
       </draggable>
-    </ul>
+    </div>
     <slot name="add-card" :list="list"></slot>
   </div>
 </template>
@@ -58,6 +65,16 @@ export default {
   opacity: 0;
 }
 
+.priority {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.priority span {
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .actions {
   display: flex;
 }
@@ -74,26 +91,26 @@ export default {
   overflow: hidden;
 }
 
-ul {
+.cards {
   margin: 0;
   padding: 9px;
   overflow-y: auto;
 }
 
-ul .transition {
+.cards .transition {
   display: block;
   height: auto;
 }
 
-ul::-webkit-scrollbar {
+.cards::-webkit-scrollbar {
   width: 20px;
 }
 
-ul::-webkit-scrollbar-thumb {
+.cards::-webkit-scrollbar-thumb {
   border-right: 10px solid #bfc4ce;
 }
 
-li {
+.card {
   background: #bfcbe2;
   /*color: #10294e;*/
   list-style: none;
@@ -105,7 +122,7 @@ li {
   cursor: pointer;
 }
 
-li:last-child {
+.card:last-child {
   margin: 0;
 }
 

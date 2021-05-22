@@ -46,8 +46,8 @@ export default {
       this.$refs.div.classList.add('is-hidden')
       this.$refs.textarea.focus()
     },
-    updateList () {
-      listService.update(this)
+    updateList (event) {
+      listService.update(this, event)
     },
     closeList () {
       // this.$refs.input.blur()

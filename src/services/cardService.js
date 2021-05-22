@@ -9,7 +9,7 @@ function store (self, target) {
       self.list.cards.push(newCard)
       self.card_title = ''
       setTimeout(function () {
-        let container = target.closest('.list-wrapper').querySelector('.list-cards ul')
+        let container = target.closest('.list-wrapper').querySelector('.cards')
         container.scrollTop = container.scrollHeight
       }, 100)
       sort(self, self.list)
@@ -94,11 +94,24 @@ function addOrRemoveMembers (self) {
   })
 }
 
+function priority (self) {
+  let formData = new FormData()
+  formData.append('priority', self.priority)
+  authAxios.post('/cards/' + self.cardId + '/priority', formData).then(response => {
+    let card = self.list.cards.find(card => card.id === response.data.card.id)
+    card.priority = response.data.card.priority
+    console.log(self.priority)
+  }).catch(() => {
+    //
+  })
+}
+
 export {
   store,
   update,
   destroy,
   sort,
   moveCard,
-  addOrRemoveMembers
+  addOrRemoveMembers,
+  priority
 }
