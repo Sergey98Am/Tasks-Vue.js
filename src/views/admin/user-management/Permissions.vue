@@ -181,6 +181,6 @@ export default {
 
 <style scoped>
 .loading {
-  min-height: 80vh;
+  min-height: 70vh;
 }
 </style>

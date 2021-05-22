@@ -15,43 +15,43 @@
                 Create New Role
               </button>
             </div>
-          </div>
-          <table class="table">
-            <thead>
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Permissions</th>
-              <th scope="col" class="actions">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="role in displayedRoles" :key="role.id">
-              <td>{{ role.title }}</td>
-              <td class="permissions">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Permissions</th>
+                <th scope="col" class="actions">Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="role in displayedRoles" :key="role.id">
+                <td>{{ role.title }}</td>
+                <td class="permissions">
                 <span v-for="permission in role.permissions" :key="permission.id">
                   {{ permission.title }}
                 </span>
-              </td>
-              <td class="actions">
-                <button v-if="$can('role_edit')" type="button" class="edit" @click="editModal(role)">
+                </td>
+                <td class="actions">
+                  <button v-if="$can('role_edit')" type="button" class="edit" @click="editModal(role)">
                   <span class="icon">
                     <font-awesome-icon :icon="['fas', 'edit']"/>
                   </span>
-                  Edit
-                </button>
-                <button v-if="$can('role_delete')" class="delete" @click="deleteRole($event.target, role.id)">
-                  <div class="spinner-border text-light delete-loader" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                  <span class="icon">
+                    Edit
+                  </button>
+                  <button v-if="$can('role_delete')" class="delete" @click="deleteRole($event.target, role.id)">
+                    <div class="spinner-border text-light delete-loader" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <span class="icon">
                     <font-awesome-icon :icon="['fas', 'trash']"/>
                   </span>
-                  Delete
-                </button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="col-12">
           <paginate v-model="page" :page-count="pageCount" :page-range="3"
@@ -122,7 +122,6 @@
       </div>
     </transition>
     <!-- End Modal -->
-    <circle-spin v-show="isLoading"></circle-spin>
   </div>
 </template>
 
@@ -199,7 +198,7 @@ export default {
 
 <style scoped>
 .loading {
-  min-height: 80vh;
+  min-height: 70vh;
 }
 
 .permissions span {
