@@ -25,5 +25,8 @@
     <li>
       Invite members to board
     </li>
+    <li>
+      Tasks Priority
+    </li>
   </ul>
 </div>
