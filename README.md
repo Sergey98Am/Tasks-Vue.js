@@ -31,5 +31,8 @@
     <li>
       <a href="https://github.com/Sergey98Am/Tasks-Laravel/tree/develop">Tasks (link of Laravel)</a>
     </li>
+    <li>
+      <a href="https://drive.google.com/drive/u/0/folders/1--hOrRTSCRxDv4SMQ2mBRmV1Bw29VkS2">Images of project</a>
+    </li>
   </ul>
 </div>
