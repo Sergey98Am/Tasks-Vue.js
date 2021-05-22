@@ -3,7 +3,7 @@
   <h1>Tasks (Vue.js)</h1>
   <ul>
     <li>
-      <p>Authentication with JWT Token</p>
+      Authentication with JWT Token
     </li>
   </ul>
 </div>
