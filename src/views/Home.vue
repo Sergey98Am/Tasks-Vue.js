@@ -190,16 +190,16 @@ export default {
   margin-top: 55px;
 }
 
-.boards .title {
+.title {
   color: #ffffff;
   text-align: center;
 }
 
-.boards .create-board {
+.create-board {
   text-align: center;
 }
 
-.boards .create-board button {
+.create-board button {
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -208,11 +208,11 @@ export default {
   color: #ffffff;
 }
 
-.boards .card {
+.card {
   background: #24334b;
 }
 
-.boards .card h6 a {
+.card h6 a {
   display: block;
   overflow: hidden;
   color: #ffffff;

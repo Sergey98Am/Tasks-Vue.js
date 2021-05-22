@@ -16,21 +16,30 @@
                 <multiselect placeholder="Select Member(s)" :multiple="true"
                              :options="board_users.map(user => user.id)"
                              :custom-label="opt => board_users.find(user => user.id === opt).name"
-                             v-model="selectedMembers"></multiselect>
+                             v-model="selectedMembers" @input="addOrRemoveMembers"></multiselect>
+              </div>
+              <div class="form-group">
+                <select @change="addPriority" v-model="priority" class="form-control">
+                  <option value="">Select Priority</option>
+                  <option>Highest</option>
+                  <option>Critical</option>
+                  <option>High</option>
+                  <option>Medium</option>
+                  <option>Low</option>
+                </select>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="close-button btn btn-secondary" @click="closeModal">Close</button>
-              <button class="create-button btn btn-dark" @click="addOrRemoveMembers">
-                Add
-              </button>
+<!--              <button @click="addOrRemoveMembers" class="create-button btn btn-dark">-->
+<!--                Add-->
+<!--              </button>-->
             </div>
           </div>
         </div>
       </div>
     </transition>
     <!-- End Modal -->
-    <!--    <circle-spin v-show="isLoading"></circle-spin>-->
   </div>
 </template>
 
@@ -43,7 +52,8 @@ export default {
       modal: false,
       cardId: '',
       title: '',
-      selectedMembers: []
+      selectedMembers: [],
+      priority: ''
     }
   },
   props: [
@@ -56,14 +66,19 @@ export default {
       this.cardId = card.id
       this.title = card.title
       this.selectedMembers = card.members ? card.members.map(member => member.id) : []
+      this.priority = card.priority ? card.priority : ''
     },
     closeModal () {
       this.modal = false
       this.title = ''
       this.selectedMembers = []
+      this.priority = ''
     },
     addOrRemoveMembers () {
       cardService.addOrRemoveMembers(this)
+    },
+    addPriority () {
+      cardService.priority(this)
     }
   }
 }
@@ -76,7 +91,7 @@ export default {
 }
 
 .multiselect__placeholder {
-  color: #12E7D4;
+  color: #10294e;
 }
 
 .multiselect__content-wrapper {

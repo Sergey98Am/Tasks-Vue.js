@@ -31,13 +31,12 @@ body {
   overflow: hidden;
 }
 
-input:focus, .modal .form-control:focus, textarea:focus, select:focus {
+input:focus {
   background: none !important;
 }
 
-.form-control:focus {
+input.form-control:focus, textarea.form-control:focus  {
   outline: 0 !important;
-  /*border-color: inherit !important;*/
   -webkit-appearance:none !important;
   box-shadow: none !important;
 }
@@ -47,9 +46,6 @@ input:focus, .modal .form-control:focus, textarea:focus, select:focus {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #E0DEDE;
-  /*background-image: url('assets/images/background.jpg');*/
-  /*background-size: cover;*/
-  /*background-attachment: fixed;*/
   position: relative;
   height: 100%;
 }
