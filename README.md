@@ -28,5 +28,8 @@
     <li>
       Tasks Priority
     </li>
+    <li>
+      <a href="https://github.com/Sergey98Am/Tasks-Laravel/tree/develop">Tasks (Laravel)</a>
+    </li>
   </ul>
 </div>
