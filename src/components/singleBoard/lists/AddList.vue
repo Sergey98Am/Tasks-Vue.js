@@ -10,7 +10,7 @@
         <button class="input-button close-button" @click="closeList">
           <font-awesome-icon :icon="['fas', 'times']"/>
         </button>
-        <button class="input-button" @click="storeList">Add</button>
+        <button class="input-button" @click="storeList($event)">Add</button>
       </div>
       <div class="button-mode active" ref="add-list-button-mode">
         <button class="only-button" @click="openAddListTypingMode('list')">
@@ -54,8 +54,8 @@ export default {
       this.list_title = ''
       this.errors.clear()
     },
-    storeList () {
-      listService.store(this)
+    storeList (event) {
+      listService.store(this, event)
     }
   }
 }

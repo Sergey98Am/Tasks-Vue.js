@@ -1,6 +1,6 @@
 import authAxios from '../../config/authAxios'
 
-function store (self) {
+function store (self, event) {
   if (self.list_title) {
     let formData = new FormData()
     formData.append('title', self.list_title)
@@ -9,7 +9,7 @@ function store (self) {
       self.lists.push(newList)
       self.list_title = ''
       setTimeout(function () {
-        let container = document.querySelector('.board-canvas')
+        let container = document.querySelector('.lists')
         container.scrollLeft = container.scrollWidth
       }, 100)
       sort(self)
