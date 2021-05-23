@@ -32,7 +32,10 @@
       <a href="https://github.com/Sergey98Am/Tasks-Laravel/tree/develop">Tasks (link of Laravel)</a>
     </li>
     <li>
-      <a href="https://drive.google.com/drive/folders/1--hOrRTSCRxDv4SMQ2mBRmV1Bw29VkS2?usp=sharing">Images of project</a>
+      <a href="https://drive.google.com/drive/mobile/folders/1--hOrRTSCRxDv4SMQ2mBRmV1Bw29VkS2">Images of project</a>
+    </li>
+    <li>
+      <a href="https://drive.google.com/file/d/1jdxz4hR8ZortTWpuZHUNeR6bpUjAZMTf/view?usp=sharing">Video of project</a>
     </li>
   </ul>
 </div>
