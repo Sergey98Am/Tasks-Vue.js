@@ -111,4 +111,19 @@ input::placeholder {
 .active {
   display: block!important;
 }
+
+@media (max-width: 576px) {
+  .add-list .button-mode button {
+    width: 250px;
+  }
+
+  .add-list .typing-mode input {
+    width: 170px;
+  }
+
+  .add-list .typing-mode button {
+    width: 35px;
+    padding: 10px 0;
+  }
+}
 </style>

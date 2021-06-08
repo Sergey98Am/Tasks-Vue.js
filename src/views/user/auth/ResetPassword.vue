@@ -2,7 +2,8 @@
   <div class="reset-password">
     <div class="container">
       <div class="row">
-        <div class="col-8 offset-2">
+<!--        col-8 offset-2-->
+        <div class="col-12 col-md-8 offset-md-2">
           <div class="reset-password-form">
             <h3>Reset Password</h3>
             <div class="form-row">

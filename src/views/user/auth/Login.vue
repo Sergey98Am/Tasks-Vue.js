@@ -2,7 +2,7 @@
   <div class="login">
     <div class="container">
       <div class="row">
-        <div class="col-6 offset-3">
+        <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
           <div class="login-form">
             <div class="form-group">
               <label for="email">Email</label>
@@ -29,7 +29,7 @@
                 <span v-if="errors.has('password')">{{ errors.first('password') }}</span>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="overflow:hidden;">
               <vue-recaptcha
                 sitekey="6Lc_0K0aAAAAAMFYMbTlBK-9ysnXXLCGzo_BXApj"
                 @verify="mxVerify"
@@ -140,12 +140,14 @@ input {
   margin-left: 10px;
   color: #ffffff;
   text-decoration: none;
+  font-size: 14px;
 }
 
 .social h5 {
   margin-top: 10px;
   margin-bottom: 10px;
   color: #08162d;
+  font-size: 16px;
   font-style: italic;
   font-weight: bolder;
 }

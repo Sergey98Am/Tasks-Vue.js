@@ -7,31 +7,33 @@
       <div ref="board-title-loader" class="spinner-border text-secondary" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="invite-member">
-        <div class="typing-mode" ref="invite-typing-mode">
-          <input type="text" placeholder="Email Address"
-                 id="email"
-                 name="email"
-                 v-model="email">
-          <button @click="closeInvite" class="input-button close-button">
-            <font-awesome-icon :icon="['fas', 'times']"/>
-          </button>
-          <button class="input-button" @click="invite">
-            <font-awesome-icon :icon="['fas', 'check']"/>
-          </button>
+      <div class="items">
+        <div class="invite-member">
+          <div class="typing-mode" ref="invite-typing-mode">
+            <input type="text" placeholder="Email Address"
+                   id="email"
+                   name="email"
+                   v-model="email">
+            <button @click="closeInvite" class="input-button close-button">
+              <font-awesome-icon :icon="['fas', 'times']"/>
+            </button>
+            <button class="input-button" @click="invite">
+              <font-awesome-icon :icon="['fas', 'check']"/>
+            </button>
+          </div>
+          <div class="button-mode active" ref="invite-button-mode">
+            <button class="only-button" @click="openInviteTypingMode('invite')">
+              Invite
+            </button>
+          </div>
         </div>
-        <div class="button-mode active" ref="invite-button-mode">
-          <button class="only-button" @click="openInviteTypingMode('invite')">
-            Invite
-          </button>
-        </div>
-      </div>
-      <div class="board-users" style="color: black">
-        <button @click="toggleDropdown">Users</button>
-        <div class="mini-container" v-if="dropdown">
-          <ul>
-            <li v-for="user in board_users" :key="user.id">{{ user.name }}</li>
-          </ul>
+        <div class="board-users" style="color: black">
+          <button @click="toggleDropdown">Users</button>
+          <div class="mini-container" v-if="dropdown">
+            <ul>
+              <li v-for="user in board_users" :key="user.id">{{ user.name }}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -194,6 +196,10 @@ ul {
   background: #1d2c44;
 }
 
+.board-header .items {
+  display: flex;
+}
+
 .board-title {
   margin: 0;
 }
@@ -246,6 +252,10 @@ ul {
   width: 220px;
 }
 
+.board-users {
+  position: relative;
+}
+
 .board-users button {
   width: 150px;
   background: #405471;
@@ -291,5 +301,58 @@ ul {
 
 .active {
   display: flex !important;
+}
+
+.navbar-toggler {
+  background-color: red !important;
+}
+
+@media (max-width: 991px) {
+  .board {
+    padding-top: 62px;
+  }
+}
+
+@media (max-width: 768px) {
+  .invite-member .button-mode button {
+    width: 120px !important;
+  }
+
+  .board-users button {
+    width: 120px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .board-header {
+    flex-direction: column;
+    padding: 8px;
+  }
+
+  .board-header .spinner-border {
+    margin-bottom: 10px;
+  }
+
+  .board-title {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  .invite-member .typing-mode input {
+    width: 100px !important;
+    font-size: 14px;
+  }
+
+  .invite-member .button-mode button {
+    width: 90px !important;
+  }
+
+  .board-users button {
+    width: 90px !important;
+  }
+
+  .mini-container {
+    right: 0;
+  }
 }
 </style>

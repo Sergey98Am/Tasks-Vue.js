@@ -2,7 +2,7 @@
   <div class="forgot-password">
     <div class="container">
       <div class="row">
-        <div class="col-6 offset-3" v-if="forgotPasswordForm">
+        <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3" v-if="forgotPasswordForm">
           <div class="forgot-password-form">
             <h3>Forgot Password</h3>
             <div class="form-group">

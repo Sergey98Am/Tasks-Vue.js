@@ -260,7 +260,7 @@ tbody {
 @media (max-width: 991px) {
   .main {
     margin-left: 0;
-    margin-top: 145px;
+    margin-top: 100px;
   }
 }
 </style>

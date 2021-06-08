@@ -1,24 +1,24 @@
 <template>
-    <div class="lists">
-      <draggable :list="lists" :options="{group:'lists'}" v-bind="dragOptions"
-                 style="height: 100%; display: inline-block"
-                 @change="sortList">
-        <transition-group type="transition" name="flip-list">
-          <div @drag="a($event)" class="list-wrapper" v-for="list in lists" :key="list.id">
-            <div class="list-content">
-              <div class="list-header">
-                <slot name="update-list" :list="list"></slot>
-              </div>
-              <slot name="cards" :list="list" :dragOptions="dragOptions"></slot>
-              <div class="list-footer">
-                <slot name="delete-list" :list="list"></slot>
-              </div>
+  <div class="lists">
+    <draggable :list="lists" :options="{group:'lists'}" v-bind="dragOptions" :scroll-sensitivity="200"
+               style="height: 100%; display: inline-block"
+               @change="sortList">
+      <transition-group type="transition" name="flip-list">
+        <div @drag="a($event)" class="list-wrapper" v-for="list in lists" :key="list.id">
+          <div class="list-content">
+            <div class="list-header">
+              <slot name="update-list" :list="list"></slot>
+            </div>
+            <slot name="cards" :list="list" :dragOptions="dragOptions"></slot>
+            <div class="list-footer">
+              <slot name="delete-list" :list="list"></slot>
             </div>
           </div>
-        </transition-group>
-      </draggable>
-      <slot name="add-list"></slot>
-    </div>
+        </div>
+      </transition-group>
+    </draggable>
+    <slot name="add-list"></slot>
+  </div>
 </template>
 
 <script>

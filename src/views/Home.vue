@@ -16,7 +16,7 @@
               <span class="sr-only">Loading...</span>
             </div>
           </div>
-          <div class="col-2" v-else v-for="board in displayedBoards" :key="board.id">
+          <div class="col-8 offset-2 col-sm-6 offset-sm-0 col-md-3 col-xl-2" v-else v-for="board in displayedBoards" :key="board.id">
             <div class="card text-center">
               <div class="card-body">
                 <h6 class="card-title">

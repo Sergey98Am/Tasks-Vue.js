@@ -2,7 +2,7 @@
   <div class="profile">
     <div class="container">
       <div class="row">
-        <div class="col-8 offset-2">
+        <div class="col-12 col-lg-8 offset-lg-2">
           <div class="card personal-information">
             <div class="card-header"><h2>My Profile</h2></div>
             <div class="card-body">

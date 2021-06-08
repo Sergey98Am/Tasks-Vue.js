@@ -34,16 +34,16 @@
               <font-awesome-icon :icon="['fas', 'chevron-down']"/>
             </a>
             <div class="sidebar-dropdown-menu" :class="{ 'toggled-on': toggleOnOff }">
-              <router-link v-if="$can('permission_access')" to="/admin/permissions" @click="toggleOnOff = false"
+              <router-link v-if="$can('permission_access')" @click.native="toggleDropdownItem" to="/admin/permissions"
                            class="d-block">
                 <font-awesome-icon :icon="['fas', 'unlock-alt']"/>
                 Permissions
               </router-link>
-              <router-link v-if="$can('role_access')" to="/admin/roles" @click="toggleOnOff = false" class="d-block">
+              <router-link v-if="$can('role_access')" to="/admin/roles" @click.native="toggleDropdownItem" class="d-block">
                 <font-awesome-icon :icon="['fas', 'suitcase']"/>
                 Roles
               </router-link>
-              <router-link v-if="$can('user_access')" to="/admin/users" @click="toggleOnOff = false" class="d-block">
+              <router-link v-if="$can('user_access')" to="/admin/users" @click.native="toggleDropdownItem" class="d-block">
                 <font-awesome-icon :icon="['fas', 'user']"/>
                 Users
               </router-link>
@@ -70,6 +70,10 @@ export default {
     toggle () {
       this.isToggled = !this.isToggled
     },
+    toggleDropdownItem () {
+      this.isToggled = false
+      this.toggleOnOff = false
+    },
     toggleOn () {
       this.toggleOnOff = !this.toggleOnOff
     },
@@ -81,6 +85,10 @@ export default {
 </script>
 
 <style scoped>
+.nav-item:first-child {
+  margin-right: 10px;
+}
+
 /* Menu */
 .menu a {
   color: #ffffff !important;
@@ -167,11 +175,6 @@ export default {
     width: 100%;
     left: -100%;
     padding: 100px 0 0;
-  }
-
-  .main {
-    margin-top: 145px;
-    margin-left: 0;
   }
 }
 </style>

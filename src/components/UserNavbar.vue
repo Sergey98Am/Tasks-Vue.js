@@ -1,12 +1,12 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <router-link class="navbar-brand" to="/">Tasks</router-link>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    <button @click="toggle" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div :class="{ toggled: isToggled }" class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <router-link class="nav-link" to="/">Home</router-link>
@@ -36,13 +36,21 @@
 import * as authService from '../services/authService'
 
 export default {
+  data () {
+    return {
+      isToggled: false
+    }
+  },
   computed: {
     loggedIn () {
       return this.$store.getters.get_loggedIn
     }
   },
   methods: {
-    LogoutRequest: function () {
+    toggle () {
+      this.isToggled = !this.isToggled
+    },
+    LogoutRequest () {
       authService.logout(this)
     }
   }
@@ -73,5 +81,19 @@ button {
 .logout {
   background: #ffffff;
   color: #314666;
+}
+
+.toggled {
+  display: block;
+}
+
+@media (max-width: 991px) {
+  .navbar-nav {
+    align-items: center;
+  }
+
+  .navbar-nav li:first-child {
+    margin-bottom: 10px;
+  }
 }
 </style>

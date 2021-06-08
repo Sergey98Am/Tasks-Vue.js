@@ -2,7 +2,7 @@
   <div class="register">
     <div class="container">
       <div class="row">
-        <div class="col-8 offset-2" v-if="registerForm">
+        <div v-if="registerForm" class="col-12 col-md-8 offset-md-2">
           <div class="register-form">
             <div class="form-row">
               <div class="form-group col-md-12">
@@ -54,7 +54,7 @@
                   <span v-if="errors.has('password_confirmation')">{{ errors.first('password_confirmation') }}</span>
                 </div>
               </div>
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-12" style="overflow: hidden">
                 <vue-recaptcha
                   sitekey="6Lc_0K0aAAAAAMFYMbTlBK-9ysnXXLCGzo_BXApj"
                   @verify="mxVerify"
@@ -169,15 +169,17 @@ input {
 }
 
 .forgot-password {
-  margin-left: 10px;
+  margin-left: 5px;
   color: #ffffff;
   text-decoration: none;
+  font-size: 13px;
 }
 
 .social h5 {
   margin-top: 10px;
   margin-bottom: 10px;
   color: #08162d;
+  font-size: 16px;
   font-style: italic;
   font-weight: bolder;
 }

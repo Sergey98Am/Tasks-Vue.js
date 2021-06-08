@@ -1,7 +1,7 @@
 <template>
   <div class="list-cards">
     <div class="cards">
-      <draggable :list="list.cards" :options="{group:'cards'}" v-bind="dragOptions"
+      <draggable :list="list.cards" :options="{group:'cards'}" v-bind="dragOptions" :scroll-sensitivity="200"
                  @add="moveCardToAnotherList($event)" @change="sortCard()">
         <transition-group class="transition" type="transition" name="flip-list">
           <div v-for="card in list.cards" :key="card.id" :cardId="card.id" class="card">
