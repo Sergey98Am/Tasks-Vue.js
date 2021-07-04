@@ -25,7 +25,7 @@
           <router-link tag="button" class="profile-button" to="/profile">Profile</router-link>
         </li>
         <li class="nav-item">
-          <button @click.prevent="LogoutRequest" class="logout">Logout</button>
+          <button @click="LogoutRequest" class="logout">Logout</button>
         </li>
       </ul>
     </div>
