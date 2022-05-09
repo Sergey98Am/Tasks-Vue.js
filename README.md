@@ -1,30 +1,18 @@
-# Tasks
-
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+<div class="tasks">
+    <h1>Tasks (Vue.js)</h1>
+    <ul>
+        <li>Html, CSS, Bootstrap, Vue.js, Laravel, MySQL</li>
+        <li>Authentication with JWT Token</li>
+        <li>Email verification system</li>
+        <li>Password reset system</li>
+        <li>Login with social media (Google, Facebook)</li>
+        <li>Update user profile system</li>
+        <li>Admin panel with permissions system</li>
+        <li>Comment system</li>
+        <li>Invite members to board</li>
+        <li>Tasks Priority</li>
+        <li>
+            <a href="https://drive.google.com/file/d/1jdxz4hR8ZortTWpuZHUNeR6bpUjAZMTf/view?usp=sharing">Video of project</a>
+        </li>
+    </ul>
+</div>
